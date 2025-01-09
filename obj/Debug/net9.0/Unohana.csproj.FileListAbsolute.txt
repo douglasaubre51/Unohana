@@ -95,3 +95,4 @@ E:\WORKSPACE\Projects\Mini Project\Unohana\obj\Debug\net9.0\refint\Unohana.dll
 E:\WORKSPACE\Projects\Mini Project\Unohana\obj\Debug\net9.0\Unohana.pdb
 E:\WORKSPACE\Projects\Mini Project\Unohana\obj\Debug\net9.0\Unohana.genruntimeconfig.cache
 E:\WORKSPACE\Projects\Mini Project\Unohana\obj\Debug\net9.0\ref\Unohana.dll
+E:\WORKSPACE\Projects\Mini Project\Unohana\obj\Debug\net9.0\Unohana.sourcelink.json
