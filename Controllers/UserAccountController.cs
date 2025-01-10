@@ -1,22 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
+using Unohana.Services;
 using Unohana.ViewModels;
 
 namespace Unohana.Controllers
 {
     public class UserAccountController : Controller
     {
-        public ActionResult CreateAccountView(CreateUserAccountVM model)
+        IConfiguration _configuration;
+        public UserAccountController(IConfiguration configuration)
         {
-            return View(model);
+            _configuration = configuration;
+        }
+
+        public ActionResult CreateAccountView()
+        {
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Submit(CreateUserAccountVM model)
+        public ActionResult CreateAccountView(CreateUserAccountVM model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    SetDBService.InsertQuery()
+
 
                 }
             }
@@ -26,7 +35,7 @@ namespace Unohana.Controllers
                 return View("SqlError", model);
             }
 
-            return View("CreateAccountView", model);
+            return View(model);
         }
 
         public ActionResult SqlError(CreateUserAccountVM model)
