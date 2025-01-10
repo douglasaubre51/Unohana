@@ -20,23 +20,24 @@ namespace Unohana.Controllers
         [HttpPost]
         public ActionResult CreateAccountView(CreateUserAccountVM model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                string query = "insert into "
+                try
                 {
-                    SetDBService.InsertQuery()
-
+                    SetDBService.InsertQuery();
 
                 }
-            }
-            catch (Exception ex)
-            {
-                model.SqlErrorMessages = ex.Message;
-                return View("SqlError", model);
+                catch (Exception ex)
+                {
+                    model.SqlErrorMessages = ex.Message;
+                    return View("SqlError", model);
+                }
             }
 
             return View(model);
         }
+
 
         public ActionResult SqlError(CreateUserAccountVM model)
         {
