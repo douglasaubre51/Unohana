@@ -16,7 +16,6 @@ namespace Unohana.Services
                     {
                         sqlConnection.Open();
                         sqlcommand.ExecuteNonQuery();
-                        sqlConnection.Close();
                     }
                 }
             }

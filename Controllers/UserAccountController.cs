@@ -22,11 +22,18 @@ namespace Unohana.Controllers
         {
             if (ModelState.IsValid)
             {
-                string query = "insert into "
+                SetDBService setDBService = new();
+
+                string query1 = $@"insert into UserDetails (FirstName,LastName,Password) values (
+                '{model.UserDetails.FirstName}',
+                '{model.UserDetails.LastName}',
+                '{model.UserDetails.Password}'
+                )";
+
                 try
                 {
-                    SetDBService.InsertQuery();
-
+                    setDBService.InsertQuery(query1, _configuration);
+                    return View("Success", model);
                 }
                 catch (Exception ex)
                 {
@@ -38,6 +45,10 @@ namespace Unohana.Controllers
             return View(model);
         }
 
+        public ActionResult Success(CreateUserAccountVM model)
+        {
+            return View(model);
+        }
 
         public ActionResult SqlError(CreateUserAccountVM model)
         {
