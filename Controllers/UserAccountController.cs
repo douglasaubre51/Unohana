@@ -22,7 +22,7 @@ namespace Unohana.Controllers
         {
             if (ModelState.IsValid)
             {
-                SetDBService setDBService = new();
+                SetDBService setDBService = new SetDBService();
 
                 string query1 = $@"insert into UserDetails (FirstName,LastName,Password) values (
                 '{model.UserDetails.FirstName}',
