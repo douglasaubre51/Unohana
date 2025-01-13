@@ -6,20 +6,20 @@
     <form class="form-container" asp-action="CreateAccountView" method="post">
 
         <label>First Name</label>
-        <input type="text" asp-for="UserDetails.FirstName" />
-        <span asp-validation-for="UserDetails.FirstName"></span>
+        <input type="text" asp-for="@Model.UserDetails.FirstName" />
+        <span asp-validation-for="@Model.UserDetails.FirstName"></span>
 
         <label>Last Name</label>
-        <input type="text" asp-for="UserDetails.LastName" />
-        <span asp-validation-for="UserDetails.LastName"></span>
+        <input type="text" asp-for="@Model.UserDetails.LastName" />
+        <span asp-validation-for="@Model.UserDetails.LastName"></span>
 
         <label>Password</label>
-        <input type="text" asp-for="UserDetails.Password" />
-        <span asp-validation-for="UserDetails.Password"></span>
+        <input type="text" asp-for="@Model.UserDetails.Password" />
+        <span asp-validation-for="@Model.UserDetails.Password"></span>
 
         <label>Confirm Password</label>
-        <input type="text" asp-for="UserDetails.ConfirmPassword" />
-        <span asp-validation-for="UserDetails.ConfirmPassword"></span>
+        <input type="text" asp-for="@Model.UserDetails.ConfirmPassword" />
+        <span asp-validation-for="@Model.UserDetails.ConfirmPassword"></span>
 
         <button type="submit">Create Account</button>
     </form>

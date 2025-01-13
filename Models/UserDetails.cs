@@ -14,7 +14,7 @@ namespace Unohana.Models
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Password is required!")]
-        [StringLength(50, MinimumLength = 8, ErrorMessage = "Password must be atleast 8 characters long!")]
+        // [StringLength(50, MinimumLength = 8, ErrorMessage = "Password must be atleast 8 characters long!")]
         public string? Password { get; set; }
 
         [Compare("Password", ErrorMessage = "Passwords doesnot match!")]

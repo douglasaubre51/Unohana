@@ -10,7 +10,7 @@ namespace Unohana.Services
             DataTable dataTable = new();
             DataSet dataSet = new();
 
-            string connectionString = configuration.GetConnectionString("IsaneDataString");
+            string? connectionString = configuration.GetConnectionString("IsaneDataString");
 
             try
             {
@@ -28,7 +28,8 @@ namespace Unohana.Services
             {
                 throw new Exception(ex.Message);
             }
-            return dataTable;
+
+            return dataTable ?? throw new Exception("NullReferenceException");
         }
     }
 }

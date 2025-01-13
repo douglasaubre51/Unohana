@@ -12,9 +12,14 @@ namespace Unohana.Controllers
             _configuration = configuration;
         }
 
-        public ActionResult CreateAccountView()
+        public IActionResult Create(CreateUserAccountVM createUserAccountVM)
         {
-            return View();
+            if (createUserAccountVM == null)
+            {
+                createUserAccountVM = new CreateUserAccountVM();
+            }
+
+            return View(createUserAccountVM);
         }
 
         [HttpPost]
@@ -24,25 +29,22 @@ namespace Unohana.Controllers
             {
                 SetDBService setDBService = new SetDBService();
 
-                string query1 = $@"insert into UserDetails (FirstName,LastName,Password) values (
-                '{model.UserDetails.FirstName}',
-                '{model.UserDetails.LastName}',
-                '{model.UserDetails.Password}'
-                )";
+                string query1 = $"insert into Users (FirstName,LastName,Password) values ('{model.UserDetails.FirstName}','{model.UserDetails.LastName}','{model.UserDetails.Password}')";
 
                 try
                 {
                     setDBService.InsertQuery(query1, _configuration);
-                    return View("Success", model);
                 }
                 catch (Exception ex)
                 {
                     model.SqlErrorMessages = ex.Message;
                     return View("SqlError", model);
                 }
+
+                return View("Success", model);
             }
 
-            return View(model);
+            return View("Index", model);
         }
 
         public ActionResult Success(CreateUserAccountVM model)

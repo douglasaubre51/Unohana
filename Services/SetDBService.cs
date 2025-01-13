@@ -6,7 +6,7 @@ namespace Unohana.Services
     {
         public void InsertQuery(string query, IConfiguration configuration)
         {
-            string connectionString = configuration.GetConnectionString("IsaneDataString");
+            string? connectionString = configuration.GetConnectionString("IsaneDataString");
 
             try
             {

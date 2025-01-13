@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj": {}
+    "e:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj": {}
   },
   "projects": {
-    "E:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj": {
+    "e:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj",
+        "projectUniqueName": "e:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj",
         "projectName": "Unohana",
-        "projectPath": "E:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj",
+        "projectPath": "e:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\Unohana.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "E:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\obj\\",
+        "outputPath": "e:\\WORKSPACE\\Projects\\Mini Project\\Unohana\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

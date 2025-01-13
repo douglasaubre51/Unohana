@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Unohana")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f46856ee59eb1081f249c3dee3d7d7ffde0dcb88")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+086d23dc32e0e28763daede5eb8ccdca16d1f8c5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Unohana")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Unohana")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
