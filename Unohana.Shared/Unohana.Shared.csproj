@@ -1,19 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MongoDB.Bson" Version="3.4.2" />
     <PackageReference Include="MongoDB.Driver" Version="3.4.2" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Unohana.Shared\Unohana.Shared.csproj" />
   </ItemGroup>
 
 </Project>

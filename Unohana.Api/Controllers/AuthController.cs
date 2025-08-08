@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace Unohana.Api.Controllers
 {
@@ -7,5 +6,10 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        [HttpGet]
+        public async Task<ActionResult> SignIn()
+        {
+            return Created();
+        }
     }
 }
