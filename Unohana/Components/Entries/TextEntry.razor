@@ -1,0 +1,21 @@
+﻿@* a string text box input component *@
+@* <TextEntry PlaceHolder Data /> *@
+
+@rendermode InteractiveServer
+
+@code {
+    [Parameter]
+    public string PlaceHolder { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Data { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback<string> DataChanged{ get; set; }
+
+    async void Action(ChangeEventArgs e)
+    {
+        await DataChanged.InvokeAsync(e.Value?.ToString());
+    }
+}
+
+<input type="text" placeholder="@PlaceHolder" value="@Data" @onchange="Action" />

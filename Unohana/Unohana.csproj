@@ -12,8 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
     <Folder Include="wwwroot\Fonts\" />
+    <Folder Include="wwwroot\CSS\Authentication\" />
   </ItemGroup>
 
 </Project>

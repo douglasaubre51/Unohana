@@ -1,0 +1,25 @@
+﻿input[type=text]{
+    outline:none;
+
+    border:1px solid grey;
+    border-radius:6px;
+
+    padding:10px;
+
+    width:250px;
+
+    background-color:whitesmoke;
+
+    text-align:center;
+
+    transition-duration:.2s;
+}
+
+    input[type=text]:focus,
+    input[type=text]:hover {
+        transition-duration:.2s;
+
+        border:1px solid lightblue;
+
+        box-shadow:rgba(0,0,0,.1) 1px 1px 10px;
+    }
