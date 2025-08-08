@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unohana", "Unohana\Unohana.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unohana.Client", "Unohana.Client\Unohana.Client.csproj", "{FECE75DD-77FB-4B7A-94B9-1369D7423EC1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unohana.Api", "Unohana.Api\Unohana.Api.csproj", "{57668CA1-7E4C-4533-BCF0-38CE8EB0B586}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FECE75DD-77FB-4B7A-94B9-1369D7423EC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FECE75DD-77FB-4B7A-94B9-1369D7423EC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FECE75DD-77FB-4B7A-94B9-1369D7423EC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57668CA1-7E4C-4533-BCF0-38CE8EB0B586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57668CA1-7E4C-4533-BCF0-38CE8EB0B586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57668CA1-7E4C-4533-BCF0-38CE8EB0B586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57668CA1-7E4C-4533-BCF0-38CE8EB0B586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
