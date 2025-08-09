@@ -1,7 +1,7 @@
 using Unohana.Api.Interfaces;
 using Unohana.Api.Models.ServiceSettings;
 using Unohana.Api.Repository;
-using Unohana.Api.Services.Authentication.StudentAuth;
+using Unohana.Api.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 // student auth
-builder.Services.AddScoped<SignUpService>();
+builder.Services.AddScoped<StudentAuthentication>();
 
 // add mongo db collections
 builder.Services.Configure<MongoDbSettings>(

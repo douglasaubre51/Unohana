@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Unohana.Api.Services.Authentication;
 using Unohana.Shared.Dtos;
 
 namespace Unohana.Api.Controllers
@@ -8,12 +9,18 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        readonly StudentAuthentication _authentication;
+        public AuthController(StudentAuthentication authentication)
+        {
+            _authentication = authentication;
+        }
+
         [HttpPost("/student-signup")]
         public async Task<ActionResult> StudentSignUp(SignUpDto dto)
         {
             try
             {
-
+                await _authentication.SignUp(dto);
             }
             catch (Exception e)
             {
