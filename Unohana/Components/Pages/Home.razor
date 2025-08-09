@@ -3,23 +3,18 @@
 @page "/"
 @rendermode InteractiveServer
 @inject NavigationManager NavigationManager
-
 @code{
     void GoToSignUpView()
     {
-        NavigationManager.NavigateTo("/sign-up");
-        Debug.WriteLine("navigating");
+        NavigationManager.NavigateTo("/junction");
+        Debug.WriteLine("navigating to junction!");
     }
 }
-
-
 <PageTitle>Home</PageTitle>
-
 
 <div class="main-layout">
     <!--empty space-->
     <div class="content-container"></div>
-
     <!--rhs content-->
     <div class="title-container">
         <!--logo-->
@@ -28,10 +23,8 @@
         <div class="desc-container">
             <!--desc-->
             <span class="desc">A new WAY for teacher - student relations</span>
-
             <!--empty space-->
             <div class="empty-space"></div>
-
             <!--goto signup btn-->
             <input type="button" class="get-started-btn" @onclick="GoToSignUpView" value="Get started!" />
         </div>

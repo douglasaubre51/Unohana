@@ -1,0 +1,22 @@
+﻿.btn{
+    transition-duration:.2s;
+    outline:none;
+
+    width:100%;
+    min-width:250px;
+    padding:10px 20px;
+
+    border-radius:10px;
+    border:1px solid grey;
+
+    background-color:white;
+    color:black;
+    font-family:Poppins-Regular;
+    letter-spacing:1.5px;
+}
+button:focus,button:hover{
+    transition-duration:.2s;
+    background-color:grey;
+    border-color:white;
+    color:whitesmoke;
+}
