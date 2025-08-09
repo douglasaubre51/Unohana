@@ -1,4 +1,5 @@
 using Unohana.Components;
+using Unohana.Services.VerificationService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddTransient<StudentVerification>();
 
 var app = builder.Build();
 

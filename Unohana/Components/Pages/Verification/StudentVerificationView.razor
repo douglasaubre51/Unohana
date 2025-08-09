@@ -1,15 +1,21 @@
-﻿@using Unohana.Components.Layout
+﻿@using System.Diagnostics
+@using Unohana.Components.Layout
 @using Unohana.Components.Cards
 @using Unohana.Components.Entries
 @using Unohana.Components.Buttons
+@using Unohana.Services.VerificationService
 
 @page "/student/verify"
 @rendermode InteractiveServer
+@inject StudentVerification StudentVerification
 @code {
     public double RegisterNumber { get; set; }
+    public bool Result { get; set; }
 
-    void OnSubmit()
+    async void OnSubmit()
     {
+        Debug.WriteLine("reg no: "+RegisterNumber);
+        Result = await StudentVerification.Verify(RegisterNumber);
     }
 }
 
@@ -24,13 +30,11 @@
             <span class="primary-title">
                 Verify
             </span>
-
             <div class="flex-container">
                 <div class="form-group">
                     <span class="label">register no</span>
                     <DigitEntry @bind-Data="@RegisterNumber" />
                 </div>
-
                 <PrimaryButton Title="continue" OnButtonClick="@OnSubmit"/>
             </div>
         </Content>

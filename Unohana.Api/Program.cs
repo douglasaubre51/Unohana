@@ -8,25 +8,23 @@ using Unohana.Api.Services.Authentication;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-
 builder.Services.AddSwaggerGen();
 
-// student auth
+// Add student auth
 builder.Services.AddScoped<StudentAuthentication>();
 
-// add mongo db collections
+// Add mongo db configuration
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbDataString")
 );
 
 // Add repositories to the container.
-
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
 
+// Add verification service
 
 var app = builder.Build();
 
@@ -37,7 +35,6 @@ if (args.Length == 1 && args[0].ToLower() == "seed-student-info")
     SeedStudentInfo.SeedCSVData(app);
     return;
 }
-
 if (args.Length == 1 && args[0].ToLower() == "seed-teacher-info")
 {
     SeedTeacherInfo.SeedCSVData(app);
@@ -52,9 +49,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

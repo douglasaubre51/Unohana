@@ -12,10 +12,10 @@ namespace Unohana.Api.Services.Authentication
             _repository = repository;
         }
 
-        public async Task SignIn(SignInDto dto)
-        {
+        //public async Task SignIn(SignInDto dto)
+        //{
 
-        }
+        //}
 
         public async Task SignUp(SignUpDto dto)
         {
