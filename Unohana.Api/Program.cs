@@ -1,3 +1,5 @@
+using System.Diagnostics;
+using Unohana.Api.Data;
 using Unohana.Api.Interfaces;
 using Unohana.Api.Models.ServiceSettings;
 using Unohana.Api.Repository;
@@ -27,6 +29,20 @@ builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 
 
 var app = builder.Build();
+
+// Run seed data methods
+if (args.Length == 1 && args[0].ToLower() == "seed-student-info")
+{
+    Debug.WriteLine("triggered seeding");
+    SeedStudentInfo.SeedCSVData(app);
+    return;
+}
+
+if (args.Length == 1 && args[0].ToLower() == "seed-teacher-info")
+{
+    SeedTeacherInfo.SeedCSVData(app);
+    return;
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
