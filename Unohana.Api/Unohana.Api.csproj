@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Unohana.Shared\Unohana.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

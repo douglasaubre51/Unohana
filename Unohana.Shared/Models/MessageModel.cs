@@ -1,8 +1,13 @@
-﻿namespace Unohana.Shared.Models
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+
+namespace Unohana.Shared.Models
 {
     public class MessageModel
     {
-        public string MessageId { get; set; } = string.Empty;
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? Id { get; set; }
         public string SenderId { get; set; } = string.Empty;
 
         public string Text { get; set; } = string.Empty;
