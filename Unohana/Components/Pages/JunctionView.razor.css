@@ -1,43 +1,5 @@
-﻿@font-face{
-    font-family:'Poppins-Regular';
-    src:url('Fonts/Poppins-Regular.ttf');
-}
-
-.main-layout{
-    user-select:none;
-    height:100vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background-color:whitesmoke;
-
-    font-family:Poppins-Regular;
-    letter-spacing:1.5px;
-}
-
-.junction-card{
-    background-color:whitesmoke;
-    border-radius:8px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    padding:20px 40px;
-
-    transition-duration:.2s;
-}
-.junction-card:hover{
-    transition-duration:.2s;
-    box-shadow:rgba(173,216,230,.9) 1px 1px 90px 10px;
-}
-
-.primary-title{
-    font-size:32px;
+﻿.primary-title{
+    font-size:22px;
 }
 
 .grid-container{

@@ -1,41 +1,4 @@
-﻿@font-face{
-    font-family:'Poppins-Regular';
-    src:url('Fonts/Poppins-Regular.ttf');
-}
-
-.main-layout{
-    height:100vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background-color:whitesmoke;
-
-    font-family:Poppins-Regular;
-    letter-spacing:1.5px;
-}
-
-.signup-card{
-    background-color:whitesmoke;
-    border-radius:8px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:start;
-    align-items:center;
-
-    padding:20px 40px;
-
-    transition-duration:.2s;
-}
-.signup-card:hover{
-    transition-duration:.2s;
-    box-shadow:rgba(173,216,230,.9) 1px 1px 90px 10px;
-}
-
-.primary-title{
+﻿.primary-title{
     font-size:32px;
     align-self:flex-start;
 }

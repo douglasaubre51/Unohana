@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Fonts\" />
-    <Folder Include="wwwroot\CSS\Authentication\" />
   </ItemGroup>
 
 </Project>

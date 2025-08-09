@@ -1,0 +1,24 @@
+﻿@* a number  box input component *@
+@* <DigitEntry PlaceHolder Data /> *@
+
+@rendermode InteractiveServer
+
+@code {
+    [Parameter]
+    public string PlaceHolder { get; set; } = string.Empty;
+
+    [Parameter]
+    public double Data { get; set; }
+    [Parameter]
+    public EventCallback<double> DataChanged{ get; set; }
+
+    async void Action(ChangeEventArgs e)
+    {
+        string? stringValue = e.Value?.ToString();
+        double value;
+        double.TryParse(stringValue,out value);
+        await DataChanged.InvokeAsync(value);
+    }
+}
+
+<input type="number" placeholder="@PlaceHolder" value="@Data" @onchange="Action" />

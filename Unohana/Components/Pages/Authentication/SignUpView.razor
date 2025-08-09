@@ -1,9 +1,11 @@
 ﻿@using System.Diagnostics
+@using Unohana.Components.Layout
 @using Unohana.Components.Entries
 @using Unohana.Components.Buttons
+@using Unohana.Components.Cards
 
 @rendermode InteractiveServer
-@page "/student-signup"
+@page "/student/signup"
 
 <PageTitle>Sign up</PageTitle>
 
@@ -21,9 +23,11 @@
     }
 }
 
-<div class="main-layout">
+<PrimaryLayout>
+<Content>
 
-    <div class="signup-card">
+    <PrimaryCard>
+        <Content>
         <span class="primary-title">Create account</span>
 
         <div class="grid-container">
@@ -51,5 +55,7 @@
         </div>
 
         <PrimaryButton Title="continue" OnButtonClick="@OnSubmit"/>
-    </div>
-</div>
+        </Content>
+        </PrimaryCard>
+</Content>
+</PrimaryLayout>

@@ -1,0 +1,40 @@
+﻿@using Unohana.Components.Layout
+@using Unohana.Components.Cards
+@using Unohana.Components.Entries
+@using Unohana.Components.Buttons
+
+@page "/student/verify"
+@rendermode InteractiveServer
+@code {
+    public double RegisterNumber { get; set; }
+
+    void OnSubmit()
+    {
+    }
+}
+
+<PageTitle>
+    Verifying student
+</PageTitle>
+
+<PrimaryLayout>
+    <Content>
+    <PrimaryCard>
+        <Content>
+            <span class="primary-title">
+                Verify
+            </span>
+
+            <div class="flex-container">
+                <div class="form-group">
+                    <span class="label">register no</span>
+                    <DigitEntry @bind-Data="@RegisterNumber" />
+                </div>
+
+                <PrimaryButton Title="continue" OnButtonClick="@OnSubmit"/>
+            </div>
+        </Content>
+    </PrimaryCard>
+    </Content>
+</PrimaryLayout>
+

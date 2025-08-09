@@ -1,25 +1,33 @@
 ﻿@using System.Diagnostics
+@using Unohana.Components.Layout
 @using Unohana.Components.Buttons
+@using Unohana.Components.Cards
 
 @page "/junction"
 @rendermode InteractiveServer
+@inject NavigationManager NavigationManager
 @code {
-
+    void StudentSignUpView()
+    {
+         NavigationManager.NavigateTo("/student/verify");
+    }
 }
 
-<PageTitle>Where to?</PageTitle>
+<PageTitle>Who are you?</PageTitle>
 
-<div class="main-layout">
-    <div class="junction-card">
+<PrimaryLayout>
+    <Content>
+    <PrimaryCard>
+        <Content>
         <span class="primary-title">
-            Where to?
+            Who are you?
         </span>
 
         <div class="grid-container">
             <div class="form-group">
                 <span class="secondary-title">Student</span>
                 <PrimaryButton Title="Sign in" />
-                <SecondaryButton Title="Sign up" />
+                <SecondaryButton Title="Sign up" OnButtonClick="StudentSignUpView" />
             </div>
             <div class="form-group">
                 <span class="secondary-title">Teacher</span>
@@ -27,5 +35,7 @@
                 <SecondaryButton Title="Sign up" />
             </div>
         </div>
-    </div>
-</div>
+        </Content>
+    </PrimaryCard>
+    </Content>
+</PrimaryLayout>
