@@ -11,5 +11,7 @@
 
         public string ChannelCollection { get; set; } = string.Empty;
         public string MessageCollection { get; set; } = string.Empty;
+        public string StudentInfoCollection { get; set; } = string.Empty;
+        public string TeacherInfoCollection { get; set; } = string.Empty;
     }
 }
