@@ -1,4 +1,4 @@
-﻿using Unohana.Api.Models.SeedModels;
+﻿using Unohana.Shared.Models.SeedModels;
 
 namespace Unohana.Api.Interfaces
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Unohana.Api.Interfaces;
-using Unohana.Api.Models.SeedModels;
+using Unohana.Shared.Models.SeedModels;
 
 namespace Unohana.Api.Controllers
 {
@@ -26,7 +26,7 @@ namespace Unohana.Api.Controllers
                     return BadRequest();
                 }
                 // success
-                return Ok();
+                return Ok(result);
             }
             catch (Exception ex)
             {

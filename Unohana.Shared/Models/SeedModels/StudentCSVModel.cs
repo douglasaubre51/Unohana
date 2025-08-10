@@ -1,4 +1,4 @@
-﻿namespace Unohana.Api.Models.SeedModels
+﻿namespace Unohana.Shared.Models.SeedModels
 {
     public class StudentCSVModel
     {

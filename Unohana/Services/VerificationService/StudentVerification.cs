@@ -1,10 +1,11 @@
 ﻿using System.Diagnostics;
+using Unohana.Shared.Models.SeedModels;
 
 namespace Unohana.Services.VerificationService
 {
     public class StudentVerification
     {
-        public async Task<bool> Verify(double regno)
+        public async Task<StudentCSVModel?> Verify(double regno)
         {
             try
             {
@@ -15,16 +16,17 @@ namespace Unohana.Services.VerificationService
                 if (!response.IsSuccessStatusCode)
                 {
                     Debug.WriteLine($"register no doesnot exist!: {response.StatusCode}");
-                    return false;
+                    return null;
                 }
                 // success
                 Debug.WriteLine("register no exists!");
-                return true;
+                StudentCSVModel? studentCSVModel = await response.Content.ReadFromJsonAsync<StudentCSVModel>();
+                return studentCSVModel;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"student verification error!: {ex}");
-                return false;
+                return null;
             }
         }
     }

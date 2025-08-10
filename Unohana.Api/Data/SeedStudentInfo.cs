@@ -3,8 +3,8 @@ using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System.Diagnostics;
 using System.Globalization;
-using Unohana.Api.Models.SeedModels;
 using Unohana.Api.Models.ServiceSettings;
+using Unohana.Shared.Models.SeedModels;
 
 namespace Unohana.Api.Data
 {

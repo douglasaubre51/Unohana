@@ -1,5 +1,4 @@
-﻿@rendermode InteractiveServer
-@page "/student/verify"
+﻿@page "/student/verify"
 @inject StudentInfoStorage StudentInfoStorage
 @inject StudentVerification StudentVerification
 @inject NavigationManager NavigationManager
@@ -7,21 +6,23 @@
 @code {
     public double RegisterNumber { get; set; }
     public string RegisterLabelMessageIsVisible { get; set; } = "hidden";
-    public bool Result { get; set; }
-
+    public StudentCSVModel? Result { get; set; }
     async void OnSubmit()
     {
         RegisterLabelMessageIsVisible = "hidden";
-        Debug.WriteLine("reg no: "+RegisterNumber);
         Result = await StudentVerification.Verify(RegisterNumber);
-        if (Result is false)
+        if (Result is null)
             RegisterLabelMessageIsVisible = "visible";
+        // success
         else
         {
-            StudentInfoStorage.RegisterNumber = RegisterNumber;
+            // store student details in scoped storage service
+            StudentInfoStorage.RegisterNumber = Result.RegisterNumber;
+            StudentInfoStorage.Username = Result.Name;
+            StudentInfoStorage.Email = Result.Email;
             NavigationManager.NavigateTo("/student/verify/otp");
         }
-
+        // render again
         StateHasChanged();
     }
 }

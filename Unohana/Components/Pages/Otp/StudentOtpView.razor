@@ -1,10 +1,9 @@
-﻿@rendermode InteractiveServer
-@page "/student/verify/otp"
+﻿@page "/student/verify/otp"
 @inject NavigationManager NavigationManager
 @inject StudentInfoStorage StudentInfoStorage
 
 @code {
-    public string Username { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
     public double RegisterNumber { get; set; }
     public double OTP { get; set; }
 
@@ -12,12 +11,10 @@
     {
         if(StudentInfoStorage.RegisterNumber == 0)
         {
-            Debug.WriteLine("redirecting to student verification!"+StudentInfoStorage.RegisterNumber);
             NavigationManager.NavigateTo("/student/verify");
         }
-
-        Debug.WriteLine("passed reg no : "+StudentInfoStorage.RegisterNumber);
-        Username = StudentInfoStorage.Username;
+        // success
+        Email = StudentInfoStorage.Email;
     }
     void OnSubmit()
     {
@@ -35,8 +32,8 @@
         <PrimaryCard>
             <Content>
                 <span class="primary-title">
-                    Otp sent!<br />
-                    Check email, @Username
+                    Otp send to: <br />
+                    @Email
                 </span>
                 <div class="flex-container">
                     <div class="form-group">
