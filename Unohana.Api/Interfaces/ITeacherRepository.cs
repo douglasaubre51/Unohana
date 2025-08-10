@@ -10,7 +10,5 @@ namespace Unohana.Api.Interfaces
         Task<bool> Add(TeacherModel teacher);
         Task<TeacherModel> Update(TeacherModel teacher);
         Task<bool> Remove(TeacherModel teacher);
-
-        Task Save(TeacherModel teacher);
     }
 }

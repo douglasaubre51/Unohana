@@ -4,6 +4,8 @@ using Unohana.Api.Interfaces;
 using Unohana.Api.Models.ServiceSettings;
 using Unohana.Api.Repository;
 using Unohana.Api.Services.Authentication;
+using Unohana.Api.Services.Email;
+using Unohana.Api.Services.Otp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,18 +15,18 @@ builder.Services.AddSwaggerGen();
 
 // Add student auth
 builder.Services.AddScoped<StudentAuthentication>();
-
+// Add otp service
+builder.Services.AddScoped<CreateOtp>();
+// Add send otp in email service
+builder.Services.AddScoped<SendOtpInEmail>();
 // Add mongo db configuration
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("MongoDbDataString")
 );
-
 // Add repositories to the container.
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
-
-// Add verification service
 
 var app = builder.Build();
 

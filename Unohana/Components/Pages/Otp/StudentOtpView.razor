@@ -1,13 +1,14 @@
 ﻿@page "/student/verify/otp"
 @inject NavigationManager NavigationManager
 @inject StudentInfoStorage StudentInfoStorage
+@inject RequestOtp RequestOtp
 
 @code {
     public string Email { get; set; } = string.Empty;
     public double RegisterNumber { get; set; }
-    public double OTP { get; set; }
+    public string OTP { get; set; } = string.Empty;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
         if(StudentInfoStorage.RegisterNumber == 0)
         {
@@ -15,14 +16,14 @@
         }
         // success
         Email = StudentInfoStorage.Email;
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
     }
-    void OnSubmit()
+    // async Task OnSubmit()
+    // {
+    // }
+    async Task OnResend()
     {
-
-    }
-    void OnResend()
-    {
-        
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
     }
 }
 
@@ -40,9 +41,9 @@
                         <span class="label">
                             otp
                         </span>
-                        <DigitEntry @bind-Data="@OTP" />
+                        <TextEntry @bind-Data="@OTP" />
                     </div>
-                    <PrimaryButton OnButtonClick="@OnSubmit" Title="verify"/>
+                    <PrimaryButton  Title="verify"/>
                     <SecondaryButton OnButtonClick="@OnResend" Title="resend"/>
                 </div>
             </Content>
