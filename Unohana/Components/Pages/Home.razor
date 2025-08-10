@@ -1,8 +1,7 @@
-﻿@using System.Diagnostics
-
+﻿@rendermode InteractiveServer
 @page "/"
-@rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+
 @code{
     void GoToSignUpView()
     {
@@ -10,8 +9,8 @@
         Debug.WriteLine("navigating to junction!");
     }
 }
-<PageTitle>Home</PageTitle>
 
+<PageTitle>Home</PageTitle>
 <div class="main-layout">
     <!--empty space-->
     <div class="content-container"></div>

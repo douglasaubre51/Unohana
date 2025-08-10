@@ -1,14 +1,9 @@
-﻿@using System.Diagnostics
-@using Unohana.Components.Layout
-@using Unohana.Components.Cards
-@using Unohana.Components.Entries
-@using Unohana.Components.Buttons
-@using Unohana.Services.VerificationService
-
+﻿@rendermode InteractiveServer
 @page "/student/verify"
-@rendermode InteractiveServer
+@inject StudentInfoStorage StudentInfoStorage
 @inject StudentVerification StudentVerification
 @inject NavigationManager NavigationManager
+
 @code {
     public double RegisterNumber { get; set; }
     public string RegisterLabelMessageIsVisible { get; set; } = "hidden";
@@ -22,7 +17,10 @@
         if (Result is false)
             RegisterLabelMessageIsVisible = "visible";
         else
-            NavigationManager.NavigateTo("/student/verify/otp/"+RegisterNumber);
+        {
+            StudentInfoStorage.RegisterNumber = RegisterNumber;
+            NavigationManager.NavigateTo("/student/verify/otp");
+        }
 
         StateHasChanged();
     }
@@ -31,7 +29,6 @@
 <PageTitle>
     Verifying student
 </PageTitle>
-
 <PrimaryLayout>
     <Content>
     <PrimaryCard>

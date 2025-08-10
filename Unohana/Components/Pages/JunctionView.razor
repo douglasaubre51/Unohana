@@ -1,11 +1,7 @@
-﻿@using System.Diagnostics
-@using Unohana.Components.Layout
-@using Unohana.Components.Buttons
-@using Unohana.Components.Cards
-
+﻿@rendermode InteractiveServer
 @page "/junction"
-@rendermode InteractiveServer
 @inject NavigationManager NavigationManager
+
 @code {
     void StudentSignUpView()
     {
@@ -14,7 +10,6 @@
 }
 
 <PageTitle>Who are you?</PageTitle>
-
 <PrimaryLayout>
     <Content>
     <PrimaryCard>
