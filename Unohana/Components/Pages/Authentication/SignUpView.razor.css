@@ -1,9 +1,4 @@
-﻿.primary-title{
-    font-size:32px;
-    align-self:flex-start;
-}
-
-.grid-container{
+﻿.grid-container{
     margin-top:40px;
 
     display:grid;
@@ -18,15 +13,3 @@
     gap:30px;
 }
 
-.form-group{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.label{
-    display:block;
-    font-size:10px;
-
-    color:grey;
-}

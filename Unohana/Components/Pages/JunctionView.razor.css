@@ -1,5 +1,6 @@
 ﻿.primary-title{
     font-size:22px;
+    align-self:center;
 }
 
 .grid-container{
@@ -21,10 +22,4 @@
     gap:30px;
     align-items:center;
     justify-content:center;
-}
-
-.label{
-    display:block;
-    font-size:10px;
-    color:grey;
 }

@@ -1,14 +1,11 @@
 ﻿.primary-card{
     background-color:whitesmoke;
     border-radius:8px;
-
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-
     padding:20px 40px;
-
     transition-duration:.2s;
 }
 .primary-card:hover{

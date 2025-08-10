@@ -8,14 +8,23 @@
 @page "/student/verify"
 @rendermode InteractiveServer
 @inject StudentVerification StudentVerification
+@inject NavigationManager NavigationManager
 @code {
     public double RegisterNumber { get; set; }
+    public string RegisterLabelMessageIsVisible { get; set; } = "hidden";
     public bool Result { get; set; }
 
     async void OnSubmit()
     {
+        RegisterLabelMessageIsVisible = "hidden";
         Debug.WriteLine("reg no: "+RegisterNumber);
         Result = await StudentVerification.Verify(RegisterNumber);
+        if (Result is false)
+            RegisterLabelMessageIsVisible = "visible";
+        else
+            NavigationManager.NavigateTo("/student/verify/otp/"+RegisterNumber);
+
+        StateHasChanged();
     }
 }
 
@@ -32,8 +41,13 @@
             </span>
             <div class="flex-container">
                 <div class="form-group">
-                    <span class="label">register no</span>
+                    <span class="label">
+                        register no
+                        </span>
                     <DigitEntry @bind-Data="@RegisterNumber" />
+                    <span class="register-label-message" style="visibility:@RegisterLabelMessageIsVisible">
+                        doesn't exist
+                        </span>
                 </div>
                 <PrimaryButton Title="continue" OnButtonClick="@OnSubmit"/>
             </div>

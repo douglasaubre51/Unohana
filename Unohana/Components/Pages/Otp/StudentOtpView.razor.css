@@ -1,17 +1,12 @@
 ﻿.primary-title{
-    font-size:32px;
-    align-self:start;
     margin-bottom:40px;
+    font-size:22px;
 }
 
-.form-container{
+.flex-container{
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-}
-
-.register-label-message{
-    font-size:10px;
-    color:red;
+    gap:20px;
 }

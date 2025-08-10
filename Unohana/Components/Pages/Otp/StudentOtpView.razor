@@ -1,0 +1,36 @@
+﻿@using Unohana.Components.Layout
+@using Unohana.Components.Cards
+@using Unohana.Components.Buttons
+@using Unohana.Components.Entries
+
+@page "/student/verify/otp/{RegisterNumber}"
+@rendermode InteractiveServer
+@code {
+    [Parameter]
+    public string RegisterNumber { get; set; }
+    public double OTP { get; set; }
+}
+
+<PageTitle>Student otp</PageTitle>
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Otp sent!<br />
+                    Check email
+                </span>
+                <div class="flex-container">
+                    <div class="form-group">
+                        <span class="label">
+                            otp
+                        </span>
+                        <DigitEntry @bind-Data="@OTP" />
+                    </div>
+                    <PrimaryButton Title="verify"/>
+                    <SecondaryButton Title="resend"/>
+                </div>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>
