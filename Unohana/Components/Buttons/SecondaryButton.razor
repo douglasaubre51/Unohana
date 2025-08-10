@@ -1,0 +1,15 @@
+﻿@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+    [Parameter]
+    public EventCallback OnButtonClick { get; set; }
+
+    async void TriggerButtonClick()
+    {
+        await OnButtonClick.InvokeAsync();
+    }
+}
+
+<button class="btn" @onclick="@TriggerButtonClick">
+    @Title
+</button>

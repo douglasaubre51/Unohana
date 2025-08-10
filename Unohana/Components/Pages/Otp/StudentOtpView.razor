@@ -1,0 +1,52 @@
+﻿@page "/student/verify/otp"
+@inject NavigationManager NavigationManager
+@inject StudentInfoStorage StudentInfoStorage
+@inject RequestOtp RequestOtp
+
+@code {
+    public string Email { get; set; } = string.Empty;
+    public double RegisterNumber { get; set; }
+    public string OTP { get; set; } = string.Empty;
+
+    protected async override Task OnInitializedAsync()
+    {
+        if(StudentInfoStorage.RegisterNumber == 0)
+        {
+            NavigationManager.NavigateTo("/student/verify");
+        }
+        // success
+        Email = StudentInfoStorage.Email;
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
+    }
+    // async Task OnSubmit()
+    // {
+    // }
+    async Task OnResend()
+    {
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
+    }
+}
+
+<PageTitle>Student otp</PageTitle>
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Otp send to: <br />
+                    @Email
+                </span>
+                <div class="flex-container">
+                    <div class="form-group">
+                        <span class="label">
+                            otp
+                        </span>
+                        <TextEntry @bind-Data="@OTP" />
+                    </div>
+                    <PrimaryButton  Title="verify"/>
+                    <SecondaryButton OnButtonClick="@OnResend" Title="resend"/>
+                </div>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>

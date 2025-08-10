@@ -1,0 +1,12 @@
+﻿.primary-title{
+    margin-bottom:40px;
+    font-size:22px;
+}
+
+.flex-container{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}

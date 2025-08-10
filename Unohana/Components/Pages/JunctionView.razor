@@ -1,0 +1,35 @@
+﻿@page "/junction"
+@inject NavigationManager NavigationManager
+
+@code {
+    void StudentSignUpView()
+    {
+         NavigationManager.NavigateTo("/student/verify");
+    }
+}
+
+<PageTitle>Who are you?</PageTitle>
+<PrimaryLayout>
+    <Content>
+    <PrimaryCard>
+        <Content>
+        <span class="primary-title">
+            Who are you?
+        </span>
+
+        <div class="grid-container">
+            <div class="form-group">
+                <span class="secondary-title">Student</span>
+                <PrimaryButton Title="Sign in" />
+                <SecondaryButton Title="Sign up" OnButtonClick="StudentSignUpView" />
+            </div>
+            <div class="form-group">
+                <span class="secondary-title">Teacher</span>
+                <PrimaryButton Title="Sign in" />
+                <SecondaryButton Title="Sign up" />
+            </div>
+        </div>
+        </Content>
+    </PrimaryCard>
+    </Content>
+</PrimaryLayout>

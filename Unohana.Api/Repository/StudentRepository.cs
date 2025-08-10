@@ -9,17 +9,12 @@ namespace Unohana.Api.Repository
     public class StudentRepository : IStudentRepository
     {
         readonly IMongoCollection<StudentModel> dbCollection;
-
         public StudentRepository(IOptions<MongoDbSettings> options)
         {
             MongoClient mongoClient = new MongoClient(options.Value.ConnectionURI);
-
             IMongoDatabase? mongoDb = mongoClient.GetDatabase(options.Value.DatabaseName);
-
             dbCollection = mongoDb.GetCollection<StudentModel>(options.Value.StudentCollection);
         }
-
-
         public async Task<List<StudentModel>> GetAll()
         {
             return await dbCollection.Find(_ => true).ToListAsync();
@@ -28,26 +23,32 @@ namespace Unohana.Api.Repository
         {
             return await dbCollection.Find(x => x.Id == id).SingleOrDefaultAsync();
         }
-
-
         public async Task Add(StudentModel student)
         {
             await dbCollection.InsertOneAsync(student);
         }
-        public async Task<StudentModel> Update(StudentModel student)
+        public async Task Update(StudentModel student)
         {
-            return await dbCollection.UpdateOneAsync(
-                student.Id,
+            var filter = Builders<StudentModel>.Filter.Eq(
+                x => x.Id,
+                student.Id
+                );
+            var updatedModel = Builders<StudentModel>.Update.Set(
+                x => x,
                 student
                 );
+            await dbCollection.UpdateOneAsync(
+               filter,
+               updatedModel
+               );
         }
-        public async Task<bool> Remove(StudentModel student)
+        public async Task Remove(StudentModel student)
         {
-            return true;
-        }
-
-        public async Task Save(StudentModel student)
-        {
+            var filter = Builders<StudentModel>.Filter.Eq(
+                x => x.Id,
+                student.Id
+                );
+            await dbCollection.DeleteOneAsync(filter);
         }
     }
 }

@@ -1,0 +1,25 @@
+﻿.primary-title{
+    font-size:22px;
+    align-self:center;
+}
+
+.grid-container{
+    margin-top:40px;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-column-gap:50px;
+}
+
+.secondary-title{
+    font-size:48px;
+    font-weight:900;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+    align-items:center;
+    justify-content:center;
+}

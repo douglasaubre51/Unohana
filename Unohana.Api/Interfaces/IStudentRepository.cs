@@ -8,9 +8,7 @@ namespace Unohana.Api.Interfaces
         Task<StudentModel> GetById(string id);
 
         Task Add(StudentModel student);
-        Task<StudentModel> Update(StudentModel student);
-        Task<bool> Remove(StudentModel student);
-
-        Task Save(StudentModel student);
+        Task Update(StudentModel student);
+        Task Remove(StudentModel student);
     }
 }

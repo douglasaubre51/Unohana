@@ -1,53 +1,9 @@
-﻿@font-face{
-    font-family:'Poppins-Regular';
-    src:url('Fonts/Poppins-Regular.ttf');
-}
-
-.main-layout{
-    height:100vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    background-color:whitesmoke;
-
-    font-family:Poppins-Regular;
-    letter-spacing:1.5px;
-}
-
-.signup-card{
-    background-color:whitesmoke;
-
-    border-radius:8px;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:start;
-    align-items:center;
-
-    padding:20px 40px;
-
-    transition-duration:.2s;
-}
-.signup-card:hover{
-    transition-duration:.2s;
-
-    box-shadow:rgba(173,216,230,.3) 1px 1px 40px 10px;
-}
-
-.primary-title{
-    font-size:32px;
-    align-self:flex-start;
-}
-
-.grid-container{
+﻿.grid-container{
     margin-top:40px;
 
     display:grid;
     grid-template-rows:1fr;
-    grid-template-columns:1fr 1fr 1fr;
+    grid-template-columns:1fr 1fr;
     grid-column-gap:40px;
 }
 
@@ -55,39 +11,5 @@
     display:flex;
     flex-direction:column;
     gap:30px;
-}
-
-.form-group{
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-}
-
-.label{
-    display:block;
-    font-size:10px;
-
-    color:grey;
-}
-
-.btn{
-    transition-duration:.2s;
-    outline:none;
-    margin-top:60px;
-
-    width:100%;
-    padding:10px 20px;
-
-    border-radius:10px;
-    border:1px solid grey;
-
-    font-family:Poppins-Regular;
-    letter-spacing:1.5px;
-}
-button:focus,button:hover{
-    transition-duration:.2s;
-
-    background-color:black;
-    color:whitesmoke;
 }
 
