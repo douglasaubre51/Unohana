@@ -32,9 +32,11 @@ namespace Unohana.Api.Services.Email
                 587,
                 MailKit.Security.SecureSocketOptions.StartTls
                 );
+            // Get env variable
+            string AppPassword = System.Environment.GetEnvironmentVariable("Email_App_Password");
             smtpClient.Authenticate(
                 "douglasaubre@gmail.com",
-                "igbc knrq xuhw deej"
+                AppPassword
                 );
             smtpClient.Send(message);
             smtpClient.Disconnect(true);

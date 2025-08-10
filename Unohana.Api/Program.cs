@@ -9,6 +9,9 @@ using Unohana.Api.Services.Otp;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Load env vars to Environment class
+DotNetEnv.Env.Load();
+
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
@@ -21,7 +24,18 @@ builder.Services.AddScoped<CreateOtp>();
 builder.Services.AddScoped<SendOtpInEmail>();
 // Add mongo db configuration
 builder.Services.Configure<MongoDbSettings>(
-    builder.Configuration.GetSection("MongoDbDataString")
+    options =>
+    {
+        // Get environment variables
+        options.ConnectionURI = Environment.GetEnvironmentVariable("ConnectionURI");
+        options.DatabaseName = Environment.GetEnvironmentVariable("DatabaseName");
+        options.StudentCollection = Environment.GetEnvironmentVariable("StudentCollection");
+        options.TeacherCollection = Environment.GetEnvironmentVariable("TeacherCollection");
+        options.ChannelCollection = Environment.GetEnvironmentVariable("ChannelCollection");
+        options.MessageCollection = Environment.GetEnvironmentVariable("MessageCollection");
+        options.StudentInfoCollection = Environment.GetEnvironmentVariable("StudentInfoCollection");
+        options.TeacherInfoCollection = Environment.GetEnvironmentVariable("TeacherInfoCollection");
+    }
 );
 // Add repositories to the container.
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
