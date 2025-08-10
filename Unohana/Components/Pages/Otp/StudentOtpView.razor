@@ -2,6 +2,7 @@
 @inject NavigationManager NavigationManager
 @inject StudentInfoStorage StudentInfoStorage
 @inject RequestOtp RequestOtp
+@inject RequestOtpVerification RequestOtpVerification
 
 @code {
     public string Email { get; set; } = string.Empty;
@@ -16,14 +17,18 @@
         }
         // success
         Email = StudentInfoStorage.Email;
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,RegisterNumber);
     }
-    // async Task OnSubmit()
-    // {
-    // }
+    async Task OnSubmit()
+    {
+        bool result = await RequestOtpVerification.Trigger(OTP,RegisterNumber);
+        // success
+        if (result is true)
+            NavigationManager.NavigateTo("/student/signup");
+    }
     async Task OnResend()
     {
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email);
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,RegisterNumber);
     }
 }
 
@@ -43,7 +48,7 @@
                         </span>
                         <TextEntry @bind-Data="@OTP" />
                     </div>
-                    <PrimaryButton  Title="verify"/>
+                    <PrimaryButton OnButtonClick="@OnSubmit"  Title="verify"/>
                     <SecondaryButton OnButtonClick="@OnResend" Title="resend"/>
                 </div>
             </Content>

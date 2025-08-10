@@ -4,12 +4,13 @@ namespace Unohana.Api.Services.Otp
 {
     public class CreateOtp
     {
-        public string Create()
+        public Totp Create(out byte[] secretKey, out string otp)
         {
-            byte[] secretkey = Guid.NewGuid().ToByteArray();
-            Totp? TOTP = new(secretkey, 120);
-            string otp = TOTP.ComputeTotp(DateTime.UtcNow);
-            return otp;
+            secretKey = Guid.NewGuid().ToByteArray();
+            Totp? totp = new(secretKey, 120);
+            otp = totp.ComputeTotp(DateTime.UtcNow);
+
+            return totp;
         }
     }
 }

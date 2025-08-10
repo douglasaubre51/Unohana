@@ -15,6 +15,8 @@ builder.Services.AddTransient<StudentVerification>();
 builder.Services.AddScoped<StudentInfoStorage>();
 // Add Request otp service
 builder.Services.AddTransient<RequestOtp>();
+// Add Request otp verification service
+builder.Services.AddTransient<RequestOtpVerification>();
 
 var app = builder.Build();
 

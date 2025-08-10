@@ -5,7 +5,7 @@ namespace Unohana.Services.OtpService
 {
     public class RequestOtp
     {
-        public async Task Trigger(string Username, string Email)
+        public async Task Trigger(string Username, string Email, double RegisterNumber)
         {
             try
             {
@@ -14,7 +14,8 @@ namespace Unohana.Services.OtpService
                 OtpInEmailDto dto = new()
                 {
                     Username = Username,
-                    Email = Email
+                    Email = Email,
+                    RegisterNumber = RegisterNumber
                 };
                 HttpResponseMessage response = await client.PostAsJsonAsync<OtpInEmailDto>(url, dto);
                 if (!response.IsSuccessStatusCode)

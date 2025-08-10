@@ -10,5 +10,6 @@
         public string MessageCollection { get; set; } = string.Empty;
         public string StudentInfoCollection { get; set; } = string.Empty;
         public string TeacherInfoCollection { get; set; } = string.Empty;
+        public string OtpTemporaryCache { get; set; } = string.Empty;
     }
 }
