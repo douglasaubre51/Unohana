@@ -18,8 +18,12 @@ builder.Services.AddSwaggerGen();
 
 // Add student auth
 builder.Services.AddScoped<StudentAuthentication>();
-// Add otp service
+// Add create otp service
 builder.Services.AddScoped<CreateOtp>();
+// Add save otp service
+builder.Services.AddScoped<SaveOtp>();
+// Add verify otp service
+builder.Services.AddScoped<VerifyOtp>();
 // Add send otp in email service
 builder.Services.AddScoped<SendOtpInEmail>();
 // Add mongo db configuration
@@ -35,6 +39,7 @@ builder.Services.Configure<MongoDbSettings>(
         options.MessageCollection = Environment.GetEnvironmentVariable("MessageCollection");
         options.StudentInfoCollection = Environment.GetEnvironmentVariable("StudentInfoCollection");
         options.TeacherInfoCollection = Environment.GetEnvironmentVariable("TeacherInfoCollection");
+        options.OtpTemporaryCache = Environment.GetEnvironmentVariable("OtpTemporaryCache");
     }
 );
 // Add repositories to the container.
