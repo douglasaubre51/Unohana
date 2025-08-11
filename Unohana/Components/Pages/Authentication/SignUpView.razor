@@ -1,8 +1,15 @@
 ﻿@page "/student/signup"
+@inject StudentInfoStorage StudentInfoStorage
+@inject NavigationManager NavigationManager
 
 @code {
     public string password { get; set; } = string.Empty;
     public string checkPassword { get; set; } = string.Empty;
+    protected override void OnInitialized()
+    {
+        if (StudentInfoStorage.RegisterNumber == 0)
+            NavigationManager.NavigateTo("/student/verify");
+    }
     void OnSubmit()
     {
         Debug.WriteLine("clicked sumbit!");

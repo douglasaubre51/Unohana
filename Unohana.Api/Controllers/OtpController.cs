@@ -44,6 +44,7 @@ namespace Unohana.Api.Controllers
         {
             try
             {
+                Debug.WriteLine($"SendEmailToClient : {dto.RegisterNumber}");
                 Totp Totp = _studentOtp.Create(out byte[] secretKey, out string otp);
                 _saveOtp.Save(dto.RegisterNumber, secretKey);
                 _sendOtpInEmail.Send(otp, dto.Username, dto.Email);

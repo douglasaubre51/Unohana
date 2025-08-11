@@ -6,7 +6,6 @@
 
 @code {
     public string Email { get; set; } = string.Empty;
-    public double RegisterNumber { get; set; }
     public string OTP { get; set; } = string.Empty;
 
     protected async override Task OnInitializedAsync()
@@ -17,18 +16,18 @@
         }
         // success
         Email = StudentInfoStorage.Email;
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,RegisterNumber);
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,StudentInfoStorage.RegisterNumber);
     }
     async Task OnSubmit()
     {
-        bool result = await RequestOtpVerification.Trigger(OTP,RegisterNumber);
+        bool result = await RequestOtpVerification.Trigger(OTP,StudentInfoStorage.RegisterNumber);
         // success
         if (result is true)
             NavigationManager.NavigateTo("/student/signup");
     }
     async Task OnResend()
     {
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,RegisterNumber);
+        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,StudentInfoStorage.RegisterNumber);
     }
 }
 
