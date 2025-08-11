@@ -3,14 +3,21 @@
 @inject NavigationManager NavigationManager
 
 @code {
-    public string password { get; set; } = string.Empty;
-    public string checkPassword { get; set; } = string.Empty;
+    [SupplyParameterFromForm]
+    private SignUpDto? Model { get; set; }
+    private EditContext? editContext;
+    private ValidationMessageStore? validationMessageStore;
     protected override void OnInitialized()
     {
+        // invalid entry
         if (StudentInfoStorage.RegisterNumber == 0)
             NavigationManager.NavigateTo("/student/verify");
+        // validation logic
+        Model ??= new();
+        editContext = new(Model);
+        validationMessageStore = new(editContext);
     }
-    void OnSubmit()
+    private void Submit()
     {
         Debug.WriteLine("clicked submit!");
     }
@@ -25,17 +32,21 @@
 <Content>
     <PrimaryCard>
         <Content>
+        <EditForm EditContext="@editContext" OnValidSubmit="@Submit" FormName="SignUpForm">
+        <DataAnnotationsValidator />
         <span class="primary-title">Create account</span>
         <div class="grid-container">
             <!--row 1-->
             <div class="rows">
                 <div class="form-group">
                 <span class="label">password</span>
-                <TextEntry @bind-Data="@password"/>
+                <InputText @bind-Value="@Model!.Password" type="password"/>
+                <ValidationMessage For="@(()=>Model!.Password)" />
                 </div>
                 <div class="form-group">
                 <span class="label">check password</span>
-                <TextEntry  @bind-Data="@checkPassword"/>
+                <InputText  @bind-Value="@Model.CheckPassword" type="password"/>
+                <ValidationMessage For="@(()=>Model!.CheckPassword)" />
                 </div>
             </div>
             <!--row 2-->
@@ -46,7 +57,8 @@
                 </div>
             </div>
         </div>
-        <PrimaryButton Title="continue" OnButtonClick="@OnSubmit"/>
+        <PrimaryButton Title="continue"/>
+        </EditForm>
         </Content>
         </PrimaryCard>
 </Content>
