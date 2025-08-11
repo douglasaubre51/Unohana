@@ -17,7 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
 // Add student auth
-builder.Services.AddScoped<StudentAuthentication>();
+builder.Services.AddScoped<CreateStudentAccount>();
 // Add create otp service
 builder.Services.AddScoped<CreateOtp>();
 // Add save otp service

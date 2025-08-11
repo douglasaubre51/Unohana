@@ -9,25 +9,24 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        readonly StudentAuthentication _authentication;
-        public AuthController(StudentAuthentication authentication)
+        readonly CreateStudentAccount _createStudent;
+        public AuthController(CreateStudentAccount createStudent)
         {
-            _authentication = authentication;
+            _createStudent = createStudent;
         }
 
-        [HttpPost("/student-signup")]
+        [HttpPost("student/signup")]
         public async Task<ActionResult> StudentSignUp(SignUpDto dto)
         {
             try
             {
-                await _authentication.SignUp(dto);
+                await _createStudent.Create(dto);
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"student signup error: {e}");
+                Debug.WriteLine($"StudentSignUp error: {e}");
                 return BadRequest();
             }
-
             return Created();
         }
     }

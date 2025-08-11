@@ -1,4 +1,5 @@
 using Unohana.Components;
+using Unohana.Services.AuthenticationService;
 using Unohana.Services.OtpService;
 using Unohana.Services.StorageService;
 using Unohana.Services.VerificationService;
@@ -17,6 +18,8 @@ builder.Services.AddScoped<StudentInfoStorage>();
 builder.Services.AddTransient<RequestOtp>();
 // Add Request otp verification service
 builder.Services.AddTransient<RequestOtpVerification>();
+// Add SignUp service
+builder.Services.AddTransient<SignUpAuthentication>();
 
 var app = builder.Build();
 

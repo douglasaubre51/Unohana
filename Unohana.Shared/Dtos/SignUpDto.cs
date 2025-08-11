@@ -2,9 +2,9 @@
 {
     public class SignUpDto
     {
-        public string Username { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public double IdentificationNumber { get; set; }
         public string Password { get; set; } = string.Empty;
-        public string Profile { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string Username { get; set; } = string.Empty;
     }
 }

@@ -1,8 +1,11 @@
 ﻿@page "/student/signup"
+@using Unohana.ValidationDtos
 @inject StudentInfoStorage StudentInfoStorage
 @inject NavigationManager NavigationManager
+@inject SignUpAuthentication SignUpAuthentication
 
 @code {
+    private string SignUpFailure { get; set; } = string.Empty;
     [SupplyParameterFromForm]
     private SignUpDto? Model { get; set; }
     private EditContext? editContext;
@@ -17,9 +20,19 @@
         editContext = new(Model);
         validationMessageStore = new(editContext);
     }
-    private void Submit()
+    async Task Submit()
     {
         Debug.WriteLine("clicked submit!");
+        bool result = await SignUpAuthentication.StudentSignUp(
+            Model!.Password,
+            StudentInfoStorage.RegisterNumber,
+            StudentInfoStorage.Username,
+            StudentInfoStorage.Email
+        );
+        if (result is false)
+            SignUpFailure = "failed to signUp!";
+        else
+            SignUpFailure = "success! created new account!";
     }
     void OnPhotoUpload(InputFileChangeEventArgs args)
     {
@@ -59,6 +72,7 @@
         </div>
         <PrimaryButton Title="continue"/>
         </EditForm>
+        <span class="">@SignUpFailure</span>
         </Content>
         </PrimaryCard>
 </Content>

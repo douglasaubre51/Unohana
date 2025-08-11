@@ -4,29 +4,22 @@ using Unohana.Shared.Models;
 
 namespace Unohana.Api.Services.Authentication
 {
-    public class StudentAuthentication
+    public class CreateStudentAccount
     {
         readonly IStudentRepository _repository;
-        public StudentAuthentication(IStudentRepository repository)
+        public CreateStudentAccount(IStudentRepository repository)
         {
             _repository = repository;
         }
-
-        //public async Task SignIn(SignInDto dto)
-        //{
-
-        //}
-
-        public async Task SignUp(SignUpDto dto)
+        public async Task Create(SignUpDto dto)
         {
-            StudentModel model = new()
+            StudentModel model = new StudentModel()
             {
                 Username = dto.Username,
-                Password = dto.Password,
                 Email = dto.Email,
-                Profile = dto.Profile
+                Password = dto.Password,
+                RegisterNumber = dto.IdentificationNumber,
             };
-
             await _repository.Add(model);
         }
     }

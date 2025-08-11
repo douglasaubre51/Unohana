@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Unohana.Dtos
+namespace Unohana.ValidationDtos
 {
     public class SignUpDto
     {
