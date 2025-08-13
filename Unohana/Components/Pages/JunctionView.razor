@@ -4,15 +4,26 @@
 @code {
     void StudentSignUpView()
     {
-         NavigationManager.NavigateTo("/student/verify");
+        NavigationManager.NavigateTo("/student/verify");
     }
     void StudentSignInView()
     {
-         NavigationManager.NavigateTo("/student/signin");
+        NavigationManager.NavigateTo("/student/signin");
+    }
+
+    void TeacherSignUpView()
+    {
+        NavigationManager.NavigateTo("/teacher/verify");
+    }
+    void TeacherSignInView()
+    {
+        NavigationManager.NavigateTo("/teacher/signin");
     }
 }
 
-<PageTitle>Who are you?</PageTitle>
+<title>
+    Who are you?
+</title>
 <PrimaryLayout>
     <Content>
     <PrimaryCard>
@@ -29,8 +40,8 @@
             </div>
             <div class="form-group">
                 <span class="secondary-title">Teacher</span>
-                <PrimaryButton Title="Sign in" />
-                <SecondaryButton Title="Sign up" />
+                <PrimaryButton Title="Sign in" OnButtonClick="@TeacherSignInView"/>
+                <SecondaryButton Title="Sign up" OnButtonClick="@TeacherSignUpView"/>
             </div>
         </div>
         </Content>

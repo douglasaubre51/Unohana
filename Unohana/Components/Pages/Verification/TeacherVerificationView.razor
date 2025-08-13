@@ -1,5 +1,12 @@
-﻿<h3>TeacherVerificationView</h3>
+﻿@page "/teacher/verify"
 
 @code {
-
+    protected override void OnAfterRender(bool firstRender)
+    {
+        StateHasChanged();
+    }
 }
+
+<title>
+    Employee verification
+</title>
