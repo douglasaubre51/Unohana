@@ -6,6 +6,7 @@ namespace Unohana.Api.Interfaces
     {
         Task<List<StudentModel>> GetAll();
         Task<StudentModel> GetById(string id);
+        Task<StudentModel> GetByRegisterNumber(double id);
 
         Task Add(StudentModel student);
         Task Update(StudentModel student);

@@ -6,6 +6,10 @@
     {
          NavigationManager.NavigateTo("/student/verify");
     }
+    void StudentSignInView()
+    {
+         NavigationManager.NavigateTo("/student/signin");
+    }
 }
 
 <PageTitle>Who are you?</PageTitle>
@@ -20,8 +24,8 @@
         <div class="grid-container">
             <div class="form-group">
                 <span class="secondary-title">Student</span>
-                <PrimaryButton Title="Sign in" />
-                <SecondaryButton Title="Sign up" OnButtonClick="StudentSignUpView" />
+                <PrimaryButton Title="Sign in" OnButtonClick="@StudentSignInView"/>
+                <SecondaryButton Title="Sign up" OnButtonClick="@StudentSignUpView" />
             </div>
             <div class="form-group">
                 <span class="secondary-title">Teacher</span>

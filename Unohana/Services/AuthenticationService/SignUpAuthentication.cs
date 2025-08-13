@@ -14,7 +14,7 @@ namespace Unohana.Services.AuthenticationService
         {
             try
             {
-                string url = "https://localhost:44343/api/Auth/student/signup";
+                string url = "https://localhost:7031/api/Auth/student/signup";
                 HttpClient client = new HttpClient();
                 SignUpDto dto = new()
                 {

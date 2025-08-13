@@ -20,6 +20,8 @@ builder.Services.AddTransient<RequestOtp>();
 builder.Services.AddTransient<RequestOtpVerification>();
 // Add SignUp service
 builder.Services.AddTransient<SignUpAuthentication>();
+// Add SignIn service
+builder.Services.AddTransient<SignInAuthentication>();
 
 var app = builder.Build();
 

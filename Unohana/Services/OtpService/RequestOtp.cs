@@ -9,7 +9,7 @@ namespace Unohana.Services.OtpService
         {
             try
             {
-                string url = "https://localhost:44343/api/Otp/student/send-email";
+                string url = "https://localhost:7031/api/Otp/student/send-email";
                 HttpClient client = new HttpClient();
                 OtpInEmailDto dto = new()
                 {

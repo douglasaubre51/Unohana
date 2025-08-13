@@ -9,15 +9,17 @@ using Unohana.Api.Services.Otp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Load env vars to Environment class
-DotNetEnv.Env.Load();
-
+// Built in middlewares
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+// Authentication
 // Add student auth
 builder.Services.AddScoped<CreateStudentAccount>();
+builder.Services.AddScoped<SignInStudent>();
+
+// Otp
 // Add create otp service
 builder.Services.AddScoped<CreateOtp>();
 // Add save otp service
@@ -26,26 +28,49 @@ builder.Services.AddScoped<SaveOtp>();
 builder.Services.AddScoped<VerifyOtp>();
 // Add send otp in email service
 builder.Services.AddScoped<SendOtpInEmail>();
+
+// Add repositories to the container.
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
+
+// Load env vars to Environment class
+DotNetEnv.Env.Load();
 // Add mongo db configuration
 builder.Services.Configure<MongoDbSettings>(
     options =>
     {
         // Get environment variables
-        options.ConnectionURI = Environment.GetEnvironmentVariable("ConnectionURI");
-        options.DatabaseName = Environment.GetEnvironmentVariable("DatabaseName");
-        options.StudentCollection = Environment.GetEnvironmentVariable("StudentCollection");
-        options.TeacherCollection = Environment.GetEnvironmentVariable("TeacherCollection");
-        options.ChannelCollection = Environment.GetEnvironmentVariable("ChannelCollection");
-        options.MessageCollection = Environment.GetEnvironmentVariable("MessageCollection");
-        options.StudentInfoCollection = Environment.GetEnvironmentVariable("StudentInfoCollection");
-        options.TeacherInfoCollection = Environment.GetEnvironmentVariable("TeacherInfoCollection");
-        options.OtpTemporaryCache = Environment.GetEnvironmentVariable("OtpTemporaryCache");
+        options.ConnectionURI = Environment.GetEnvironmentVariable(
+            "ConnectionURI"
+        );
+        options.DatabaseName = Environment.GetEnvironmentVariable(
+            "DatabaseName"
+        );
+        options.StudentCollection = Environment.GetEnvironmentVariable(
+"StudentCollection"
+        );
+        options.TeacherCollection = Environment.GetEnvironmentVariable(
+"TeacherCollection"
+        );
+        options.ChannelCollection = Environment.GetEnvironmentVariable(
+"ChannelCollection"
+        );
+        options.MessageCollection = Environment.GetEnvironmentVariable(
+"MessageCollection"
+        );
+        options.StudentInfoCollection = Environment.GetEnvironmentVariable(
+"StudentInfoCollection"
+        );
+        options.TeacherInfoCollection = Environment.GetEnvironmentVariable(
+"TeacherInfoCollection"
+        );
+        options.OtpTemporaryCache = Environment.GetEnvironmentVariable(
+"OtpTemporaryCache"
+        );
     }
 );
-// Add repositories to the container.
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
+
 
 var app = builder.Build();
 

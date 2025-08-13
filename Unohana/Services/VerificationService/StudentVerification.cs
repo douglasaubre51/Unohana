@@ -10,7 +10,7 @@ namespace Unohana.Services.VerificationService
             try
             {
                 Debug.WriteLine($"reg no: {regno}");
-                string url = "https://localhost:44343/api/Verification/student/" + regno;
+                string url = "https://localhost:7031/api/Verification/student/" + regno;
                 HttpClient client = new();
                 HttpResponseMessage response = await client.GetAsync(url);
                 if (!response.IsSuccessStatusCode)

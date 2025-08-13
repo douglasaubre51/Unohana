@@ -1,0 +1,73 @@
+﻿@page "/student/signin"
+@inject SignInAuthentication SignInAuthentication
+@inject NavigationManager NavigationManager
+
+@code {
+    string SignInErrorMessage = string.Empty;
+    private EditContext? editContext;
+    [SupplyParameterFromForm]
+    private SignInDto? Model { get; set; }
+    private ValidationMessageStore? validationMessageStore;
+    protected override void OnInitialized()
+    {
+        Model = Model ?? new();
+        editContext = new(Model);
+        validationMessageStore = new(editContext);
+    }
+    async Task Submit()
+    {
+        try
+        {
+            bool result = await SignInAuthentication.StudentSignIn(
+            Model!.IdentificationNumber,
+            Model!.Password
+            );
+            if(result is false)
+            {
+                SignInErrorMessage = "signin failed";
+                return;
+            }
+            // success
+            NavigationManager.NavigateTo("/student/profile");
+        }catch(Exception ex)
+        {
+            Debug.WriteLine($"Student signin error : {ex}");
+        }
+    }
+}
+
+<PageTitle>Sign in</PageTitle>
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Sign in
+                </span>
+                <EditForm OnValidSubmit="@Submit" EditContext="@editContext" FormName="SignIn">
+                    <DataAnnotationsValidator />
+                    <div class="flex-container">
+                        <div class="form-group">
+                        <span class="label">
+                            register no
+                        </span>
+                        <InputNumber  @bind-Value="@Model!.IdentificationNumber"/>
+                        <ValidationMessage For="@(()=> Model.IdentificationNumber)" />
+                        </div>
+                        <div class="form-group">
+                        <span class="label">
+                            password
+                        </span>
+                        <InputText type="password" @bind-Value="@Model!.Password"/>
+                        <ValidationMessage For="@(()=> Model.Password)" />
+                        </div>
+                    </div>
+                    <PrimaryButton Title="continue" />
+                    <span class="label">
+                        @SignInErrorMessage
+                    </span>
+                </EditForm>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>

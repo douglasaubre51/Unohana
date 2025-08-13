@@ -9,7 +9,7 @@ namespace Unohana.Services.OtpService
         {
             try
             {
-                string url = "https://localhost:44343/api/Otp/student/verify-otp";
+                string url = "https://localhost:7031/api/Otp/student/verify-otp";
                 HttpClient client = new HttpClient();
                 OtpVerifyDto dto = new()
                 {

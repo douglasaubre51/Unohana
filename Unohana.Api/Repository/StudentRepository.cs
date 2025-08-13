@@ -23,6 +23,10 @@ namespace Unohana.Api.Repository
         {
             return await dbCollection.Find(x => x.Id == id).SingleOrDefaultAsync();
         }
+        public async Task<StudentModel> GetByRegisterNumber(double registerNo)
+        {
+            return await dbCollection.Find(x => x.RegisterNumber == registerNo).SingleOrDefaultAsync();
+        }
         public async Task Add(StudentModel student)
         {
             await dbCollection.InsertOneAsync(student);
