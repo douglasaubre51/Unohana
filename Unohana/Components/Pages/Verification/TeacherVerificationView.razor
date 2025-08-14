@@ -1,12 +1,34 @@
 ﻿@page "/teacher/verify"
 
 @code {
-    protected override void OnAfterRender(bool firstRender)
+    private double EmployeeId { get; set; }
+
+    void Submit()
     {
-        StateHasChanged();
+        
     }
 }
 
 <title>
     Employee verification
 </title>
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Verify Id
+                </span>
+                <div class="flex-container">
+                    <div class="form-group">
+                        <span class="label">
+                            employee id
+                        </span>
+                        <DigitEntry @bind-Data="@EmployeeId" />
+                    </div>
+                </div>
+                <PrimaryButton Title="continue" OnButtonClick="@Submit"/>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>

@@ -1,8 +1,9 @@
 ﻿@page "/student/verify/otp"
+@using Unohana.Services
 @inject NavigationManager NavigationManager
-@inject StudentInfoStorage StudentInfoStorage
-@inject RequestOtp RequestOtp
-@inject RequestOtpVerification RequestOtpVerification
+@inject UserStorage StudentInfoStorage
+@inject OtpService OtpService
+@inject OtpService OtpServiceVerification
 
 @code {
     public string Email { get; set; } = string.Empty;
@@ -15,19 +16,41 @@
             NavigationManager.NavigateTo("/student/verify");
         }
         // success
-        Email = StudentInfoStorage.Email;
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,StudentInfoStorage.RegisterNumber);
+        try
+        {
+            Email = StudentInfoStorage.Email;
+            await OtpService.RequestOtp(
+                StudentInfoStorage.Username,
+                Email,
+                StudentInfoStorage.RegisterNumber
+            );
+        }catch(Exception ex){ Debug.WriteLine("RequestOtp error: " + ex); }
     }
+
     async Task OnSubmit()
     {
-        bool result = await RequestOtpVerification.Trigger(OTP,StudentInfoStorage.RegisterNumber);
-        // success
-        if (result is true)
-            NavigationManager.NavigateTo("/student/signup");
+        try
+        {
+            bool result = await OtpServiceVerification.RequestVerification(
+                    OTP,
+                    StudentInfoStorage.RegisterNumber
+                );
+            // success
+            if (result is true)
+                NavigationManager.NavigateTo("/student/signup");
+        }catch(Exception ex){ Debug.WriteLine("RequestVerification error: " + ex); }
     }
+
     async Task OnResend()
     {
-        await RequestOtp.Trigger(StudentInfoStorage.Username,Email,StudentInfoStorage.RegisterNumber);
+        try
+        {
+            await OtpService.RequestOtp(
+                    StudentInfoStorage.Username,
+                    Email,
+                    StudentInfoStorage.RegisterNumber
+                );
+        }catch(Exception ex){ Debug.WriteLine("RequestOtp error: " + ex); }
     }
 }
 

@@ -1,8 +1,6 @@
 using Unohana.Components;
-using Unohana.Services.AuthenticationService;
-using Unohana.Services.OtpService;
-using Unohana.Services.StorageService;
-using Unohana.Services.VerificationService;
+using Unohana.Services;
+using Unohana.Services.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,17 +9,17 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddTransient<StudentVerification>();
-// Add Storage service
-builder.Services.AddScoped<StudentInfoStorage>();
-// Add Request otp service
-builder.Services.AddTransient<RequestOtp>();
-// Add Request otp verification service
-builder.Services.AddTransient<RequestOtpVerification>();
-// Add SignUp service
-builder.Services.AddTransient<SignUpAuthentication>();
-// Add SignIn service
-builder.Services.AddTransient<SignInAuthentication>();
+// Give an HttpClient for each user!
+builder.Services.AddScoped<HttpClient>();
+
+// user id verification service
+builder.Services.AddScoped<VerificationService>();
+// Add user storage service
+builder.Services.AddScoped<UserStorage>();
+// Add otp service
+builder.Services.AddScoped<OtpService>();
+// Add StudentAuthentication service
+builder.Services.AddScoped<Student>();
 
 var app = builder.Build();
 

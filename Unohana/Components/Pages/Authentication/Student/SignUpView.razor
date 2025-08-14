@@ -1,39 +1,47 @@
 ﻿@page "/student/signup"
+@using Unohana.Services
+@using Unohana.Services.Authentication
 @using Unohana.ValidationDtos
-@inject StudentInfoStorage StudentInfoStorage
+@inject UserStorage StudentInfoStorage
 @inject NavigationManager NavigationManager
-@inject SignUpAuthentication SignUpAuthentication
+@inject Student Student
 
 @code {
     private string SignUpFailure { get; set; } = string.Empty;
+
     [SupplyParameterFromForm]
     private SignUpDto? Model { get; set; }
     private EditContext? editContext;
     private ValidationMessageStore? validationMessageStore;
+
     protected override void OnInitialized()
     {
         // invalid entry
         if (StudentInfoStorage.RegisterNumber == 0)
             NavigationManager.NavigateTo("/student/verify");
+
         // validation logic
         Model ??= new();
         editContext = new(Model);
         validationMessageStore = new(editContext);
     }
+
     async Task Submit()
     {
-        Debug.WriteLine("clicked submit!");
-        bool result = await SignUpAuthentication.StudentSignUp(
-            Model!.Password,
-            StudentInfoStorage.RegisterNumber,
-            StudentInfoStorage.Username,
-            StudentInfoStorage.Email
-        );
-        if (result is false)
-            SignUpFailure = "failed to signUp!";
-        else
-            SignUpFailure = "success! created new account!";
+        try{
+            bool result = await Student.SignUp(
+                Model!.Password,
+                StudentInfoStorage.RegisterNumber,
+                StudentInfoStorage.Username,
+                StudentInfoStorage.Email
+            );
+            if (result is false)
+                SignUpFailure = "failed to signUp!";
+            else
+                SignUpFailure = "success! created new account!";
+        }catch(Exception ex){ Debug.WriteLine("SignUp error: " + ex); }
     }
+
     void OnPhotoUpload(InputFileChangeEventArgs args)
     {
         Debug.WriteLine("file upload!");

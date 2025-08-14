@@ -1,24 +1,28 @@
 ﻿@page "/student/signin"
-@inject SignInAuthentication SignInAuthentication
+@using Unohana.Services.Authentication
+@inject Student Student
 @inject NavigationManager NavigationManager
 
 @code {
     string SignInErrorMessage = string.Empty;
+
     private EditContext? editContext;
     [SupplyParameterFromForm]
     private SignInDto? Model { get; set; }
     private ValidationMessageStore? validationMessageStore;
+
     protected override void OnInitialized()
     {
         Model = Model ?? new();
         editContext = new(Model);
         validationMessageStore = new(editContext);
     }
+
     async Task Submit()
     {
         try
         {
-            bool result = await SignInAuthentication.StudentSignIn(
+            bool result = await Student.SignIn(
             Model!.IdentificationNumber,
             Model!.Password
             );
@@ -29,10 +33,7 @@
             }
             // success
             NavigationManager.NavigateTo("/student/profile");
-        }catch(Exception ex)
-        {
-            Debug.WriteLine($"Student signin error : {ex}");
-        }
+        }catch(Exception ex){ Debug.WriteLine($"Student signin error : {ex}"); }
     }
 }
 

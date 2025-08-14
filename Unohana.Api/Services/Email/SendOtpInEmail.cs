@@ -26,18 +26,24 @@ namespace Unohana.Api.Services.Email
                             </body>
                          </html>"
             };
+
             using var smtpClient = new SmtpClient();
             smtpClient.Connect(
                 "smtp.gmail.com",
                 587,
                 MailKit.Security.SecureSocketOptions.StartTls
                 );
+
             // Get env variable
-            string AppPassword = System.Environment.GetEnvironmentVariable("Email_App_Password");
+            string AppPassword = System.Environment.GetEnvironmentVariable(
+            "Email_App_Password"
+            );
+
             smtpClient.Authenticate(
                 "douglasaubre@gmail.com",
                 AppPassword
                 );
+
             smtpClient.Send(message);
             smtpClient.Disconnect(true);
         }
