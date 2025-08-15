@@ -9,6 +9,7 @@ namespace Unohana.Api.Repository
     public class StudentRepository : IStudentRepository
     {
         readonly IMongoCollection<StudentModel> dbCollection;
+
         public StudentRepository(IOptions<MongoDbSettings> options)
         {
             MongoClient mongoClient = new MongoClient(options.Value.ConnectionURI);

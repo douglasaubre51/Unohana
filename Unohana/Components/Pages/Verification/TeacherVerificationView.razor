@@ -1,11 +1,29 @@
 ﻿@page "/teacher/verify"
+@inject VerificationService VerificationService
+@inject NavigationManager NavigationManager
+@inject UserStorage UserStorage
 
 @code {
+    private string VerificationMessage = string.Empty;
     private double EmployeeId { get; set; }
 
-    void Submit()
+    async Task Submit()
     {
-        
+        try
+        {
+            TeacherCSVModel? teacher = await VerificationService.VerifyTeacher(EmployeeId);
+            if(teacher is null)
+            {
+                VerificationMessage = "Employee not found!";
+                return;
+            }
+            // success
+            UserStorage.EmployeeId = EmployeeId;
+            UserStorage.Email = teacher.Email;
+            UserStorage.Username = teacher.Name;
+            NavigationManager.NavigateTo("/teacher/signup");
+        }
+        catch(Exception ex){ Debug.WriteLine("VerifyTeacher error: "+ex); }
     }
 }
 
@@ -28,6 +46,9 @@
                     </div>
                 </div>
                 <PrimaryButton Title="continue" OnButtonClick="@Submit"/>
+                <span class="label">
+                    @VerificationMessage
+                </span>
             </Content>
         </PrimaryCard>
     </Content>

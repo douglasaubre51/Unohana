@@ -33,6 +33,7 @@ builder.Services.AddScoped<SendOtpInEmail>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
+builder.Services.AddTransient<ITeacherInfoRepository, TeacherInfoRepository>();
 
 // Load env vars to Environment class
 DotNetEnv.Env.Load();
