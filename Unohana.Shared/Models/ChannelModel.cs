@@ -17,6 +17,6 @@ namespace Unohana.Shared.Models
         public List<MessageModel>? PinnedMessageList { get; set; }
 
         public List<StudentModel>? StudentList { get; set; }
-        public List<TeacherCsvModel>? TeacherList { get; set; }
+        public List<TeacherModel>? TeacherList { get; set; }
     }
 }

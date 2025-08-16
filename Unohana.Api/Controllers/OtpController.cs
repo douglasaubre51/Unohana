@@ -9,19 +9,18 @@ namespace Unohana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OtpController : ControllerBase
+    public class OtpController(
+        CreateOtp studentOtp,
+        SendOtpInEmail sendOtpInEmail,
+        SaveOtp saveOtp,
+        VerifyOtp verifyOtp
+        ) : ControllerBase
     {
-        readonly CreateOtp _studentOtp;
-        readonly SaveOtp _saveOtp;
-        readonly SendOtpInEmail _sendOtpInEmail;
-        readonly VerifyOtp _verifyOtp;
-        public OtpController(CreateOtp studentOtp, SendOtpInEmail sendOtpInEmail, SaveOtp saveOtp, VerifyOtp verifyOtp)
-        {
-            _studentOtp = studentOtp;
-            _sendOtpInEmail = sendOtpInEmail;
-            _saveOtp = saveOtp;
-            _verifyOtp = verifyOtp;
-        }
+        readonly CreateOtp _studentOtp = studentOtp;
+        readonly SaveOtp _saveOtp = saveOtp;
+        readonly SendOtpInEmail _sendOtpInEmail = sendOtpInEmail;
+        readonly VerifyOtp _verifyOtp = verifyOtp;
+
         [HttpPost("student/verify-otp")]
         public ActionResult VerifyOtpForClient(OtpVerifyDto dto)
         {

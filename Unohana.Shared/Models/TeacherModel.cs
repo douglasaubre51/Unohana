@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Unohana.Shared.Models
 {
-    public class TeacherCsvModel
+    public class TeacherModel
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

@@ -38,7 +38,7 @@ namespace Unohana.Services.Authentication
                 IdentificationNumber = IdentificationNumber,
                 Password = Password
             };
-            string url = "https://localhost:7031/student/signin";
+            string url = "https://localhost:7031/api/Auth/student/signin";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
             if (!response.IsSuccessStatusCode)
             {

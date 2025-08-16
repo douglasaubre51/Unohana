@@ -10,6 +10,23 @@
     align-self:flex-start;
 }
 
+.grid-container{
+    margin-top:40px;
+
+    display:grid;
+    grid-template-rows:1fr;
+    grid-template-columns:1fr 1fr;
+    grid-column-gap:40px;
+    grid-row-gap:20px;
+}
+
+.rows{
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+}
+
+
 .form-group{
     display:flex;
     flex-direction:column;

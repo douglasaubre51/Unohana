@@ -14,12 +14,18 @@ builder.Services.AddScoped<HttpClient>();
 
 // user id verification service
 builder.Services.AddScoped<VerificationService>();
+
 // Add user storage service
 builder.Services.AddScoped<UserStorage>();
+
 // Add otp service
 builder.Services.AddScoped<OtpService>();
+
 // Add StudentAuthentication service
 builder.Services.AddScoped<Student>();
+
+// Add Teacher Authentication service
+builder.Services.AddScoped<Teacher>();
 
 var app = builder.Build();
 
