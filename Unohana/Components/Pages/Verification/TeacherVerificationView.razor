@@ -21,7 +21,7 @@
             UserStorage.EmployeeId = EmployeeId;
             UserStorage.Email = teacher.Email;
             UserStorage.Username = teacher.Name;
-            NavigationManager.NavigateTo("/teacher/signup");
+            NavigationManager.NavigateTo("/teacher/verify/otp");
         }
         catch(Exception ex){ Debug.WriteLine("VerifyTeacher error: "+ex); }
     }
