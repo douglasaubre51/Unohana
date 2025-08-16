@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Unohana.Api.Interfaces;
-using Unohana.Api.Services.Authentication;
 using Unohana.Shared.Dtos;
 using Unohana.Shared.Models;
 
@@ -11,13 +10,11 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController(
         ITeacherRepository teacherRepository,
-        CreateStudentAccount createStudent,
-        SignInStudent signInStudent
+        IStudentRepository studentRepository
             ) : ControllerBase
     {
         readonly ITeacherRepository _teacherRepository = teacherRepository;
-        readonly CreateStudentAccount _createStudent = createStudent;
-        readonly SignInStudent _signInStudent = signInStudent;
+        readonly IStudentRepository _studentRepository = studentRepository;
 
         [HttpPost("teacher/signup")]
         public async Task<ActionResult> TeacherSignup(SignUpDto dto)
@@ -46,7 +43,9 @@ namespace Unohana.Api.Controllers
         {
             try
             {
-                StudentModel? model = await _signInStudent.SignIn(dto);
+                StudentModel? model = await _studentRepository
+                    .GetByRegisterNumber(dto.IdentificationNumber);
+
                 if (model is null)
                 {
                     Debug.WriteLine("invalid register no!");
@@ -72,14 +71,22 @@ namespace Unohana.Api.Controllers
         {
             try
             {
-                await _createStudent.Create(dto);
+                StudentModel model = new()
+                {
+                    RegisterNumber = dto.IdentificationNumber,
+                    Username = dto.Username,
+                    Email = dto.Email,
+                    Password = dto.Password,
+                };
+                await _studentRepository.Add(model);
+                // success
+                return Created();
             }
             catch (Exception e)
             {
                 Debug.WriteLine($"StudentSignUp error: {e}");
                 return BadRequest();
             }
-            return Created();
         }
     }
 }

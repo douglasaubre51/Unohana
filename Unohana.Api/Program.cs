@@ -3,37 +3,14 @@ using Unohana.Api.Data;
 using Unohana.Api.Interfaces;
 using Unohana.Api.Models.ServiceSettings;
 using Unohana.Api.Repository;
-using Unohana.Api.Services.Authentication;
 using Unohana.Api.Services.Email;
 using Unohana.Api.Services.Otp;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Built in middlewares
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
-
-// Authentication
-// Add student auth
-builder.Services.AddScoped<CreateStudentAccount>();
-builder.Services.AddScoped<SignInStudent>();
-
-// Otp
-// Add create otp service
-builder.Services.AddScoped<CreateOtp>();
-// Add save otp service
-builder.Services.AddScoped<SaveOtp>();
-// Add verify otp service
-builder.Services.AddScoped<VerifyOtp>();
-// Add send otp in email service
-builder.Services.AddScoped<SendOtpInEmail>();
-
-// Add repositories to the container.
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
-builder.Services.AddTransient<IStudentInfoRepository, StudentInfoRepository>();
-builder.Services.AddTransient<ITeacherInfoRepository, TeacherInfoRepository>();
 
 // Load env vars to Environment class
 DotNetEnv.Env.Load();
@@ -71,6 +48,27 @@ builder.Services.Configure<MongoDbSettings>(
         );
     }
 );
+
+// Add mongodb context!
+builder.Services.AddSingleton<MongoDbContext>();
+
+// Otp
+// Add create otp service
+builder.Services.AddScoped<CreateOtp>();
+// Add save otp service
+builder.Services.AddScoped<SaveOtp>();
+// Add verify otp service
+builder.Services.AddScoped<VerifyOtp>();
+// Add send otp in email service
+builder.Services.AddScoped<SendOtpInEmail>();
+
+// Add repositories to the container.
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+// Add csv models info repositories
+builder.Services.AddScoped<IStudentInfoRepository, StudentInfoRepository>();
+builder.Services.AddScoped<ITeacherInfoRepository, TeacherInfoRepository>();
+
 
 
 var app = builder.Build();

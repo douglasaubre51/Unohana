@@ -1,71 +1,38 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using Unohana.Api.Data;
 using Unohana.Api.Interfaces;
-using Unohana.Api.Models.ServiceSettings;
 using Unohana.Shared.Models;
 
 namespace Unohana.Api.Repository
 {
-    public class TeacherRepository : ITeacherRepository
+    public class TeacherRepository(MongoDbContext context) : ITeacherRepository
     {
-        readonly IMongoCollection<TeacherModel> collection;
-
-        public TeacherRepository(IOptions<MongoDbSettings> options)
-        {
-            MongoClient client = new(
-                options.Value.ConnectionURI
-                );
-
-            IMongoDatabase db = client.GetDatabase(
-                options.Value.DatabaseName
-                );
-
-            collection = db.GetCollection<TeacherModel>(
-                options.Value.TeacherCollection
-                );
-        }
+        readonly IMongoCollection<TeacherModel> collection = context.TeacherCollection;
 
         public async Task<List<TeacherModel>> GetAll()
-        {
-            var filter = Builders<TeacherModel>.Filter.Empty;
-            return await collection.Find(filter).ToListAsync();
-        }
-        public async Task<TeacherModel> GetById(string id)
-        {
-            var filter = Builders<TeacherModel>.Filter.Eq(
-                x => x.Id,
-                id
-                );
-            return await collection.Find(filter).FirstOrDefaultAsync();
-        }
-        public async Task Add(TeacherModel teacher)
-        {
-            await collection.InsertOneAsync(teacher);
-        }
-        public async Task Update(TeacherModel teacher)
-        {
-            var filter = Builders<TeacherModel>.Filter.Eq(
-                x => x.Id,
-                teacher.Id
-                );
+            => await collection
+            .Find(
+                x => true
+                )
+            .ToListAsync();
 
-            var update = Builders<TeacherModel>.Update.Set(
-                x => x,
+        public async Task<TeacherModel> GetById(string id)
+            => await collection
+            .Find(x => x.Id == id)
+            .FirstOrDefaultAsync();
+
+        public async Task Add(TeacherModel teacher)
+            => await collection.InsertOneAsync(teacher);
+
+        public async Task Update(TeacherModel teacher)
+            => await collection.ReplaceOneAsync(
+                x => x.EmployeeId == teacher.EmployeeId,
                 teacher
                 );
 
-            await collection.UpdateOneAsync(filter, update);
-        }
         public async Task Remove(TeacherModel teacher)
-        {
-            var filter = Builders<TeacherModel>.Filter.Eq(
-                x => x.Id,
+            => await collection.DeleteOneAsync(
                 teacher.Id
                 );
-
-            await collection.DeleteOneAsync(
-                filter
-                );
-        }
     }
 }

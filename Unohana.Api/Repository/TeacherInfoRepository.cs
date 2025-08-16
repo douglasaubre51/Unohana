@@ -1,38 +1,19 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
+using Unohana.Api.Data;
 using Unohana.Api.Interfaces;
-using Unohana.Api.Models.ServiceSettings;
 using Unohana.Shared.Models.SeedModels;
 
 namespace Unohana.Api.Repository
 {
-    public class TeacherInfoRepository : ITeacherInfoRepository
+    public class TeacherInfoRepository(MongoDbContext context) : ITeacherInfoRepository
     {
-        readonly IMongoCollection<TeacherCSVModel> _collection;
-
-        public TeacherInfoRepository(IOptions<MongoDbSettings> options)
-        {
-            MongoClient client = new(
-                options.Value.ConnectionURI
-                );
-
-            IMongoDatabase db = client.GetDatabase(
-                options.Value.DatabaseName
-                );
-
-            _collection = db.GetCollection<TeacherCSVModel>(
-                options.Value.TeacherInfoCollection
-                );
-        }
+        readonly IMongoCollection<TeacherCSVModel> _collection = context.TeacherInfoCollection;
 
         public async Task<TeacherCSVModel> GetByEmployeeId(double employeeId)
-        {
-            var filter = Builders<TeacherCSVModel>.Filter.Eq(
-                x => x.EmployeeId,
-                employeeId
-                );
-
-            return await _collection.Find<TeacherCSVModel>(filter).FirstOrDefaultAsync();
-        }
+            => await _collection
+            .Find<TeacherCSVModel>(
+                x => x.EmployeeId == employeeId
+                )
+            .FirstOrDefaultAsync();
     }
 }
