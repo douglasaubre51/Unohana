@@ -1,36 +1,24 @@
-﻿using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using OtpNet;
+using Unohana.Api.Data;
 using Unohana.Api.Models;
-using Unohana.Api.Models.ServiceSettings;
 using Unohana.Shared.Dtos;
 
 namespace Unohana.Api.Services.Otp
 {
-    public class VerifyOtp
+    public class VerifyOtp(MongoDbContext context)
     {
-        readonly IMongoCollection<OtpTemporaryCache> _collection;
-        public VerifyOtp(IOptions<MongoDbSettings> options)
-        {
-            MongoClient mongoClient = new(
-                options.Value.ConnectionURI
-                );
-            IMongoDatabase database = mongoClient.GetDatabase(
-                options.Value.DatabaseName
-                );
-            _collection = database.GetCollection<OtpTemporaryCache>(
-                options.Value.OtpTemporaryCache
-                );
-        }
+        readonly IMongoCollection<OtpTemporaryCache> _collection = context.OtpTemporaryCache;
+
         public bool Verify(OtpVerifyDto dto)
         {
-            var filter = Builders<OtpTemporaryCache>.Filter.Eq(
-                x => x.IdentificationNumber,
-                dto.IdentificationNumber
-                );
-            var storedOtpCache = _collection.Find(filter).FirstOrDefault();
+            var storedOtpCache = _collection
+                .Find(
+                x => x.IdentificationNumber == dto.IdentificationNumber
+                )
+                .FirstOrDefault();
 
-            Totp totp = new Totp(storedOtpCache.SecretKey, 120);
+            Totp totp = new(storedOtpCache.SecretKey, 120);
             bool result = totp.VerifyTotp(dto.Otp, out long window);
 
             return result;

@@ -1,0 +1,87 @@
+﻿@page "/teacher/verify/otp"
+@inject UserStorage UserStorage
+@inject NavigationManager NavigationManager
+@inject OtpService OtpService
+
+@code {
+    private string Otp { get; set; } = string.Empty;
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (UserStorage.EmployeeId == 0)
+            NavigationManager.NavigateTo("/teacher/verify");
+        // success
+        try
+        {
+            await OtpService.RequestOtpForTeacher(
+                UserStorage.Username,
+                UserStorage.Email,
+                UserStorage.EmployeeId
+            );
+        }
+        catch(Exception ex)
+        {
+            Debug.WriteLine("RequestOtpForTeacher error: " + ex);
+        }
+    }
+
+    async Task Resend()
+    {
+        try
+        {
+            await OtpService.RequestOtpForTeacher(
+                UserStorage.Username,
+                UserStorage.Email,
+                UserStorage.EmployeeId
+            );
+
+        }
+        catch (Exception ex) { Debug.WriteLine("RequestOtpForTeacher error: " + ex); }
+    }
+
+    async Task Submit()
+    {
+        try
+        {
+            bool status = await OtpService.RequestVerificationForTeacher(
+                Otp,
+                UserStorage.EmployeeId
+            );
+            if(status is false)
+            {
+                return;
+            }
+            // success
+            NavigationManager.NavigateTo("/teacher/signup");
+        }
+        catch(Exception ex) { Debug.WriteLine("RequestVerificationForTeacher error: " + ex); }
+    }
+}
+
+<title>
+    Otp verification
+</title>
+
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Verify Otp
+                </span>
+                <div class="flex-container">
+                    <div class="form-group">
+                        <span class="label">
+                            otp
+                        </span>
+                        <TextEntry @bind-Data="@Otp"/>
+                    </div>
+                    <PrimaryButton Title="continue" OnButtonClick="@Submit" />
+                    <SecondaryButton Title="resend" OnButtonClick="@Resend" />
+                </div>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>
+
+

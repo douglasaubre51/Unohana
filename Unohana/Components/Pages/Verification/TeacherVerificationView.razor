@@ -1,5 +1,55 @@
-﻿<h3>TeacherVerificationView</h3>
+﻿@page "/teacher/verify"
+@inject VerificationService VerificationService
+@inject NavigationManager NavigationManager
+@inject UserStorage UserStorage
 
 @code {
+    private string VerificationMessage = string.Empty;
+    private double EmployeeId { get; set; }
 
+    async Task Submit()
+    {
+        try
+        {
+            TeacherCSVModel? teacher = await VerificationService.VerifyTeacher(EmployeeId);
+            if(teacher is null)
+            {
+                VerificationMessage = "Employee not found!";
+                return;
+            }
+            // success
+            UserStorage.EmployeeId = EmployeeId;
+            UserStorage.Email = teacher.Email;
+            UserStorage.Username = teacher.Name;
+            NavigationManager.NavigateTo("/teacher/verify/otp");
+        }
+        catch(Exception ex){ Debug.WriteLine("VerifyTeacher error: "+ex); }
+    }
 }
+
+<title>
+    Employee verification
+</title>
+<PrimaryLayout>
+    <Content>
+        <PrimaryCard>
+            <Content>
+                <span class="primary-title">
+                    Verify Id
+                </span>
+                <div class="flex-container">
+                    <div class="form-group">
+                        <span class="label">
+                            employee id
+                        </span>
+                        <DigitEntry @bind-Data="@EmployeeId" />
+                    </div>
+                </div>
+                <PrimaryButton Title="continue" OnButtonClick="@Submit"/>
+                <span class="label">
+                    @VerificationMessage
+                </span>
+            </Content>
+        </PrimaryCard>
+    </Content>
+</PrimaryLayout>

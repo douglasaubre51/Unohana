@@ -1,35 +1,42 @@
 ﻿@page "/student/verify"
-@inject StudentInfoStorage StudentInfoStorage
-@inject StudentVerification StudentVerification
+@using Unohana.Services
+@inject UserStorage UserStorage
+@inject VerificationService StudentVerification
 @inject NavigationManager NavigationManager
 
 @code {
     public double RegisterNumber { get; set; }
     public string RegisterLabelMessageIsVisible { get; set; } = "hidden";
     public StudentCSVModel? Result { get; set; }
+
     async void OnSubmit()
     {
-        RegisterLabelMessageIsVisible = "hidden";
-        Result = await StudentVerification.Verify(RegisterNumber);
-        if (Result is null)
-            RegisterLabelMessageIsVisible = "visible";
-        // success
-        else
+        try
         {
-            // store student details in scoped storage service
-            StudentInfoStorage.RegisterNumber = Result.RegisterNumber;
-            StudentInfoStorage.Username = Result.Name;
-            StudentInfoStorage.Email = Result.Email;
-            NavigationManager.NavigateTo("/student/verify/otp");
+            RegisterLabelMessageIsVisible = "hidden";
+
+            Result = await StudentVerification.VerifyStudent(RegisterNumber);
+            if (Result is null)
+                RegisterLabelMessageIsVisible = "visible";
+            // success
+            else
+            {
+                // store student details in scoped storage service
+                UserStorage.RegisterNumber = Result.RegisterNumber;
+                UserStorage.Username = Result.Name;
+                UserStorage.Email = Result.Email;
+                NavigationManager.NavigateTo("/student/verify/otp");
+            }
+            // render again
+            StateHasChanged();
         }
-        // render again
-        StateHasChanged();
+        catch (Exception ex) { Debug.WriteLine("VerifyStudent error : " + ex); }
     }
 }
 
-<PageTitle>
+<title>
     Verifying student
-</PageTitle>
+</title>
 <PrimaryLayout>
     <Content>
     <PrimaryCard>

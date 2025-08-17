@@ -6,9 +6,10 @@ namespace Unohana.Api.Interfaces
     {
         Task<List<TeacherModel>> GetAll();
         Task<TeacherModel> GetById(string id);
+        Task<TeacherModel> GetByEmployeeId(double employeeId);
 
-        Task<bool> Add(TeacherModel teacher);
-        Task<TeacherModel> Update(TeacherModel teacher);
-        Task<bool> Remove(TeacherModel teacher);
+        Task Add(TeacherModel teacher);
+        Task Update(TeacherModel teacher);
+        Task Remove(TeacherModel teacher);
     }
 }

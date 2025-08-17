@@ -9,21 +9,62 @@ namespace Unohana.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OtpController : ControllerBase
+    public class OtpController(
+        CreateOtp clientOtp,
+        SendOtpInEmail sendOtpInEmail,
+        SaveOtp saveOtp,
+        VerifyOtp verifyOtp
+        ) : ControllerBase
     {
-        readonly CreateOtp _studentOtp;
-        readonly SaveOtp _saveOtp;
-        readonly SendOtpInEmail _sendOtpInEmail;
-        readonly VerifyOtp _verifyOtp;
-        public OtpController(CreateOtp studentOtp, SendOtpInEmail sendOtpInEmail, SaveOtp saveOtp, VerifyOtp verifyOtp)
+        readonly CreateOtp _clientOtp = clientOtp;
+        readonly SaveOtp _saveOtp = saveOtp;
+        readonly SendOtpInEmail _sendOtpInEmail = sendOtpInEmail;
+        readonly VerifyOtp _verifyOtp = verifyOtp;
+
+        // teacher
+        [HttpPost("teacher/verify-otp")]
+        public ActionResult VerifyOtpForTeacher(OtpVerifyDto dto)
         {
-            _studentOtp = studentOtp;
-            _sendOtpInEmail = sendOtpInEmail;
-            _saveOtp = saveOtp;
-            _verifyOtp = verifyOtp;
+            try
+            {
+                bool status = _verifyOtp.Verify(dto);
+                if (status is false)
+                {
+                    Debug.WriteLine("invalid otp! : ");
+                    return Unauthorized();
+                }
+                // success
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"VerifyOtpForTeacher error: {ex}");
+                return StatusCode(500);
+            }
         }
+
+        [HttpPost("teacher/send-email")]
+        public ActionResult SendOtpToTeacher(OtpInEmailDto dto)
+        {
+            try
+            {
+                Totp totp = _clientOtp.Create(out byte[] secretKey, out string otp);
+
+                _saveOtp.Save(dto.IdentificationNumber, secretKey);
+                _sendOtpInEmail.Send(otp, dto.Username, dto.Email);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"SendOtpToTeacher error: {ex}");
+                return StatusCode(500);
+            }
+        }
+
+        // client
         [HttpPost("student/verify-otp")]
-        public ActionResult VerifyOtpForClient(OtpVerifyDto dto)
+        public ActionResult VerifyOtpForStudent(OtpVerifyDto dto)
         {
             try
             {
@@ -35,25 +76,25 @@ namespace Unohana.Api.Controllers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"VerifyOtpForClient error: {ex}");
+                Debug.WriteLine($"VerifyOtpForStudent error: {ex}");
                 return StatusCode(500);
             }
         }
+
         [HttpPost("student/send-email")]
-        public ActionResult SendEmailToClient(OtpInEmailDto dto)
+        public ActionResult SendOtpToStudent(OtpInEmailDto dto)
         {
             try
             {
-                Debug.WriteLine($"SendEmailToClient : {dto.RegisterNumber}");
-                Totp Totp = _studentOtp.Create(out byte[] secretKey, out string otp);
-                _saveOtp.Save(dto.RegisterNumber, secretKey);
+                Totp Totp = _clientOtp.Create(out byte[] secretKey, out string otp);
+                _saveOtp.Save(dto.IdentificationNumber, secretKey);
                 _sendOtpInEmail.Send(otp, dto.Username, dto.Email);
 
                 return Ok();
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"SendOtpInEmail error: {ex}");
+                Debug.WriteLine($"SendOtpToStudent error: {ex}");
                 return StatusCode(500);
             }
         }
