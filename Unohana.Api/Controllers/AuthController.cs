@@ -16,6 +16,34 @@ namespace Unohana.Api.Controllers
         readonly ITeacherRepository _teacherRepository = teacherRepository;
         readonly IStudentRepository _studentRepository = studentRepository;
 
+        [HttpPost("teacher/signin")]
+        public async Task<ActionResult> TeacherSignIn(SignInDto dto)
+        {
+            try
+            {
+                TeacherModel? model = await _teacherRepository
+                    .GetByEmployeeId(dto.IdentificationNumber);
+
+                if (model is null)
+                {
+                    Debug.WriteLine("invalid employee id!");
+                    return Unauthorized();
+                }
+                if (model.Password != dto.Password)
+                {
+                    Debug.WriteLine("invalid password!");
+                    return Unauthorized();
+                }
+                // success
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"TeacherSignIn error: {ex}");
+                return StatusCode(500);
+            }
+        }
+
         [HttpPost("teacher/signup")]
         public async Task<ActionResult> TeacherSignup(SignUpDto dto)
         {

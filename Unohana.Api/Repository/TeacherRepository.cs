@@ -21,6 +21,11 @@ namespace Unohana.Api.Repository
             .Find(x => x.Id == id)
             .FirstOrDefaultAsync();
 
+        public async Task<TeacherModel> GetByEmployeeId(double employeeId)
+            => await collection
+            .Find(e => e.EmployeeId == employeeId)
+            .FirstOrDefaultAsync();
+
         public async Task Add(TeacherModel teacher)
             => await collection.InsertOneAsync(teacher);
 
