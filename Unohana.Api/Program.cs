@@ -12,6 +12,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpContextAccessor();
+
+
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("UnohanaBackendAccess", policy =>
+//    {
+//        policy.WithOrigins("https://localhost:44352")
+//        .AllowAnyHeader()
+//        .AllowAnyMethod()
+//        .AllowCredentials();
+//    });
+//});
+
 // Load env vars to Environment class
 DotNetEnv.Env.Load();
 // Add mongo db configuration
@@ -94,7 +108,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//app.UseCors("UnohanaBackendAccess");
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

@@ -2,6 +2,7 @@
 @using Unohana.Services.Authentication
 @inject Teacher Teacher
 @inject NavigationManager NavigationManager
+@inject IHttpContextAccessor HttpContextAccessor
 
 @code {
     string SignInErrorMessage = string.Empty;
@@ -32,6 +33,7 @@
                 return;
             }
             // success
+            Debug.WriteLine($"{HttpContextAccessor.HttpContext?.Request.Cookies.ContainsKey("Name")}");
             NavigationManager.NavigateTo("/teacher/profile");
         }catch(Exception ex){ Debug.WriteLine($"Teacher signin error : {ex}"); }
     }

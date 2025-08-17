@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 using Unohana.Api.Interfaces;
 using Unohana.Shared.Dtos;
 using Unohana.Shared.Models;
@@ -35,7 +38,35 @@ namespace Unohana.Api.Controllers
                     return Unauthorized();
                 }
                 // success
-                return Ok(model);
+                // create a cookie!
+                List<Claim> claims = new()
+                {
+                    new Claim(ClaimTypes.NameIdentifier,model.Id!.ToString()),
+                    new Claim(ClaimTypes.Name,model.Username),
+                    new Claim(ClaimTypes.Email,model.Email),
+                    new Claim(ClaimTypes.Role,"Teacher")
+                };
+
+                ClaimsIdentity identity = new(
+                    claims,
+                    CookieAuthenticationDefaults.AuthenticationScheme
+                    );
+
+                AuthenticationProperties properties = new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    AllowRefresh = true,
+                };
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(identity),
+                    properties
+                    );
+
+                Debug.WriteLine($"teacher logged in at:{DateTime.UtcNow}");
+
+                return Ok();
             }
             catch (Exception ex)
             {

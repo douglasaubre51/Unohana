@@ -9,7 +9,7 @@ namespace Unohana.Services
 
         public async Task<TeacherCSVModel?> VerifyTeacher(double employeeId)
         {
-            string url = "https://localhost:7031/api/Verification/teacher/" + employeeId;
+            string url = "api/Verification/teacher/" + employeeId;
             HttpResponseMessage response = await _client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
@@ -23,7 +23,7 @@ namespace Unohana.Services
 
         public async Task<StudentCSVModel?> VerifyStudent(double regno)
         {
-            string url = "https://localhost:7031/api/Verification/student/" + regno;
+            string url = "api/Verification/student/" + regno;
             HttpResponseMessage response = await _client.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {

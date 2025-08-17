@@ -20,7 +20,7 @@ namespace Unohana.Services
                 Email = Email,
                 IdentificationNumber = EmployeeId
             };
-            string url = "https://localhost:7031/api/Otp/teacher/send-email";
+            string url = "api/Otp/teacher/send-email";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
             if (!response.IsSuccessStatusCode)
             {
@@ -40,7 +40,7 @@ namespace Unohana.Services
                 Otp = Otp,
                 IdentificationNumber = IdentificationNumber
             };
-            string url = "https://localhost:7031/api/Otp/teacher/verify-otp";
+            string url = "api/Otp/teacher/verify-otp";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
             if (!response.IsSuccessStatusCode)
             {
@@ -65,7 +65,7 @@ namespace Unohana.Services
                 Email = Email,
                 IdentificationNumber = RegisterNumber
             };
-            string url = "https://localhost:7031/api/Otp/student/send-email";
+            string url = "api/Otp/student/send-email";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
             if (!response.IsSuccessStatusCode)
             {
@@ -85,7 +85,7 @@ namespace Unohana.Services
                 Otp = Otp,
                 IdentificationNumber = IdentificationNumber
             };
-            string url = "https://localhost:7031/api/Otp/student/verify-otp";
+            string url = "api/Otp/student/verify-otp";
             HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
             if (!response.IsSuccessStatusCode)
             {

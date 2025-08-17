@@ -9,8 +9,25 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddHttpContextAccessor();
+
 // Give an HttpClient for each user!
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddScoped(sp =>
+{
+    var handler = new HttpClientHandler
+    {
+        UseCookies = true,
+        CookieContainer = new System.Net.CookieContainer()
+    };
+
+    return new HttpClient(handler)
+    {
+        BaseAddress = new Uri("https://localhost:7031/")
+    };
+});
+
+//builder.Services.AddAuthentication();
+//builder.Services.AddAuthorization();
 
 // user id verification service
 builder.Services.AddScoped<VerificationService>();
@@ -41,9 +58,13 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

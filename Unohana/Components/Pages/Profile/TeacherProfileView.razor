@@ -1,0 +1,15 @@
+﻿@page "/teacher/profile"
+@inject IHttpContextAccessor HttpContextAccessor
+
+@code {
+    protected override void OnInitialized()
+    {
+        Debug.WriteLine($"{HttpContextAccessor.HttpContext?.Request.Cookies.ContainsKey("Name")}");
+        Debug.WriteLine(
+            $" welcome : {HttpContextAccessor.HttpContext?.Request.Cookies["Role"]}"
+        );
+    }
+}
+
+<h3>Profile</h3>
+
