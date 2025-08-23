@@ -9,6 +9,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Unohana.Client\Unohana.Client.csproj" />
     <ProjectReference Include="..\Unohana.Shared\Unohana.Shared.csproj" />
+    <PackageReference Include="Blazored.SessionStorage" Version="2.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.0-preview.5.25277.114" />
     <PackageReference Include="MongoDB.Bson" Version="3.4.2" />
   </ItemGroup>

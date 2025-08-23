@@ -23,6 +23,8 @@ namespace Unohana.Services.Authentication
                 return false;
             }
             // success
+
+            var content = await response.Content.ReadFromJsonAsync<JwtDto>();
             return true;
         }
 

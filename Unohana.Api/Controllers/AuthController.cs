@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Security.Claims;
+using Unohana.Api.Helpers;
 using Unohana.Api.Interfaces;
 using Unohana.Shared.Dtos;
 using Unohana.Shared.Models;
@@ -13,11 +11,13 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController(
         ITeacherRepository teacherRepository,
-        IStudentRepository studentRepository
+        IStudentRepository studentRepository,
+        JwtCreater jwtCreater
             ) : ControllerBase
     {
         readonly ITeacherRepository _teacherRepository = teacherRepository;
         readonly IStudentRepository _studentRepository = studentRepository;
+        readonly JwtCreater _jwtCreater = jwtCreater;
 
         [HttpPost("teacher/signin")]
         public async Task<ActionResult> TeacherSignIn(SignInDto dto)
@@ -38,35 +38,12 @@ namespace Unohana.Api.Controllers
                     return Unauthorized();
                 }
                 // success
-                // create a cookie!
-                List<Claim> claims = new()
-                {
-                    new Claim(ClaimTypes.NameIdentifier,model.Id!.ToString()),
-                    new Claim(ClaimTypes.Name,model.Username),
-                    new Claim(ClaimTypes.Email,model.Email),
-                    new Claim(ClaimTypes.Role,"Teacher")
-                };
-
-                ClaimsIdentity identity = new(
-                    claims,
-                    CookieAuthenticationDefaults.AuthenticationScheme
-                    );
-
-                AuthenticationProperties properties = new AuthenticationProperties
-                {
-                    IsPersistent = true,
-                    AllowRefresh = true,
-                };
-
-                await HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(identity),
-                    properties
-                    );
+                // create a Jwt token!
+                var jwt = _jwtCreater.GetToken(model.EmployeeId);
 
                 Debug.WriteLine($"teacher logged in at:{DateTime.UtcNow}");
 
-                return Ok();
+                return Ok(new { jwt });
             }
             catch (Exception ex)
             {
