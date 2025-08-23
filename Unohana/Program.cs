@@ -1,3 +1,5 @@
+using Blazored.SessionStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 using Unohana.Components;
 using Unohana.Services;
 using Unohana.Services.Authentication;
@@ -9,8 +11,20 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+
+// Add Custom AuthStateProvider
+builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthStateService>();
+builder.Services.AddBlazoredSessionStorage();
+builder.Services.AddAuthorization();
+
 // Give an HttpClient for each user!
-builder.Services.AddScoped<HttpClient>();
+builder.Services.AddHttpClient("Unohana.api", options =>
+{
+    options.BaseAddress = new Uri("https://localhost:7031/");
+});
+
+//builder.Services.AddAuthentication();
+//builder.Services.AddAuthorization();
 
 // user id verification service
 builder.Services.AddScoped<VerificationService>();
@@ -41,9 +55,13 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()

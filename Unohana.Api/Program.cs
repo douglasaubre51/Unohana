@@ -1,5 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
+using System.Text;
 using Unohana.Api.Data;
+using Unohana.Api.Helpers;
 using Unohana.Api.Interfaces;
 using Unohana.Api.Models.ServiceSettings;
 using Unohana.Api.Repository;
@@ -11,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor();
 
 // Load env vars to Environment class
 DotNetEnv.Env.Load();
@@ -48,7 +53,6 @@ builder.Services.Configure<MongoDbSettings>(
         );
     }
 );
-
 // Add mongodb context!
 builder.Services.AddSingleton<MongoDbContext>();
 
@@ -69,7 +73,29 @@ builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
 builder.Services.AddScoped<IStudentInfoRepository, StudentInfoRepository>();
 builder.Services.AddScoped<ITeacherInfoRepository, TeacherInfoRepository>();
 
+// Add Jwt token creator service
+builder.Services.AddScoped<JwtCreater>();
 
+// Add jwt config
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = "localhost",
+            ValidAudience = "localhost",
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(
+                    Environment.GetEnvironmentVariable("JWT_SECRET_KEY")
+                    )
+                )
+        };
+    });
 
 var app = builder.Build();
 
@@ -94,7 +120,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+//app.UseCors("UnohanaBackendAccess");
+
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();

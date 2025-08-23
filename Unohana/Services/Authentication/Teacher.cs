@@ -7,6 +7,27 @@ namespace Unohana.Services.Authentication
     {
         readonly HttpClient _client = client;
 
+        public async Task<bool> SignIn(double IdentificationNumber, string Password)
+        {
+            SignInDto dto = new()
+            {
+                IdentificationNumber = IdentificationNumber,
+                Password = Password
+            };
+
+            string url = "api/Auth/teacher/signin";
+            HttpResponseMessage response = await _client.PostAsJsonAsync(url, dto);
+            if (!response.IsSuccessStatusCode)
+            {
+                Debug.WriteLine($"SignIn failed!: {response.StatusCode}");
+                return false;
+            }
+            // success
+
+            var content = await response.Content.ReadFromJsonAsync<JwtDto>();
+            return true;
+        }
+
         public async Task<bool> SignUp(
             double employeeId,
             string username,
@@ -21,7 +42,8 @@ namespace Unohana.Services.Authentication
                 Email = email,
                 Password = password
             };
-            string url = "https://localhost:7031/api/Auth/teacher/signup";
+
+            string url = "api/Auth/teacher/signup";
             HttpResponseMessage response = await _client.PostAsJsonAsync<SignUpDto>(url, dto);
             if (!response.IsSuccessStatusCode)
             {

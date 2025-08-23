@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Unohana.Api.Helpers;
 using Unohana.Api.Interfaces;
 using Unohana.Shared.Dtos;
 using Unohana.Shared.Models;
@@ -10,11 +11,13 @@ namespace Unohana.Api.Controllers
     [ApiController]
     public class AuthController(
         ITeacherRepository teacherRepository,
-        IStudentRepository studentRepository
+        IStudentRepository studentRepository,
+        JwtCreater jwtCreater
             ) : ControllerBase
     {
         readonly ITeacherRepository _teacherRepository = teacherRepository;
         readonly IStudentRepository _studentRepository = studentRepository;
+        readonly JwtCreater _jwtCreater = jwtCreater;
 
         [HttpPost("teacher/signin")]
         public async Task<ActionResult> TeacherSignIn(SignInDto dto)
@@ -35,7 +38,12 @@ namespace Unohana.Api.Controllers
                     return Unauthorized();
                 }
                 // success
-                return Ok(model);
+                // create a Jwt token!
+                var jwt = _jwtCreater.GetToken(model.EmployeeId);
+
+                Debug.WriteLine($"teacher logged in at:{DateTime.UtcNow}");
+
+                return Ok(new { jwt });
             }
             catch (Exception ex)
             {
