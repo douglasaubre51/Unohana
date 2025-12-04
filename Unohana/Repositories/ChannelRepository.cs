@@ -1,0 +1,21 @@
+namespace Unohana.Repositories;
+
+public class ChannelRepository(ApplicationDbContext context)
+{
+    private readonly ApplicationDbContext _context = context;
+
+    public Channel? GetById(int channelId)
+        => _context.Channels.SingleOrDefault(t => t.Id == channelId);
+    public List<Channel> GetAll()
+        => [.. _context.Channels];
+
+    public void Add(Channel channel)
+    {
+        _context.Channels.Add(channel);
+        Save();
+    }
+
+    void Save()
+       => _context.SaveChanges();
+}
+

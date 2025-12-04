@@ -4,3 +4,4 @@ global using Microsoft.EntityFrameworkCore;
 
 global using Unohana.Data;
 global using Unohana.Models;
+global using Unohana.Repositories;

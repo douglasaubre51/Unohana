@@ -1,4 +1,3 @@
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,6 +8,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseMySql(connString, ServerVersion.AutoDetect(connString));
 });
+
+// Add repositories.
+builder.Services.AddScoped<TutorRepository>();
+builder.Services.AddScoped<StudentRepository>();
+builder.Services.AddScoped<ChannelRepository>();
+builder.Services.AddScoped<MessageRepository>();
 
 
 var app = builder.Build();
