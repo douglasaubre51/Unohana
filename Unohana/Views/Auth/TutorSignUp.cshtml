@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Tutor SignUp";
+}
+
+<div class="center-content">
+    <h1 class="display-4">Create new Tutor Account</h1>
+
+    <span class="label">First name</span>
+    <input class="text-box" type="text" />
+
+    <span class="label">Last name</span>
+    <input class="text-box" type="text" />
+
+    <span class="label">Employee id</span>
+    <input class="text-box" type="number" />
+
+    <span class="label">Email</span>
+    <input class="text-box" type="email" />
+
+    <span class="label">Password</span>
+    <input class="text-box" type="password" />
+
+    <button class="primary-btn">continue</button>
+
+    <a asp-action="TutorSignIn" asp-controller="Auth">already have an account ?</a>
+</div>
