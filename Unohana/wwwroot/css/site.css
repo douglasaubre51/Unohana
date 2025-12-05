@@ -69,3 +69,7 @@ body {
   background-color: #333333;
   border: 1px solid #333333;
 }
+
+.invalid-error-label {
+  color: red;
+}

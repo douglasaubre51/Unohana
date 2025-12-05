@@ -1,17 +1,27 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Components
+@using Unohana.ViewModels.Auth
+
+@model TutorSignInViewModel
+
+@{
     ViewData["Title"] = "Tutor SignIn";
 }
 
-<div class="center-content">
-    <h1 class="display-4">Tutor SignIn</h1>
 
-    <span class="label">Email</span>
-    <input class="text-box" type="text" />
+<form asp-action="TutorSignIn" asp-controller="Auth" method="post">
+    <div class="center-content">
+        <h1 class="display-4">Tutor SignIn</h1>
 
-    <span class="label">Password</span>
-    <input class="text-box" type="text" />
+        <span class="label">Email</span>
+        <span asp-validation-for="@Model.Email" class="invalid-error-label"></span>
+        <input asp-for="@Model.Email" class="text-box" type="text" />
 
-    <button class="primary-btn">continue</button>
+        <span class="label">Password</span>
+        <span asp-validation-for="@Model.Password" class="invalid-error-label"></span>
+        <input asp-for="@Model.Password" class="text-box" type="password" />
 
-    <a asp-action="TutorSignUp" asp-controller="Auth">don't have an account ?</a>
-</div>
+        <button class="primary-btn">continue</button>
+
+        <a asp-action="TutorSignUp" asp-controller="Auth">don't have an account ?</a>
+    </div>
+</form>
