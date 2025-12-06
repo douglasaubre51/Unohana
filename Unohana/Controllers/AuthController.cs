@@ -9,6 +9,11 @@ namespace Unohana.Controllers
         {
             return View();
         }
+        public ActionResult TutorSignUp()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult TutorSignIn(TutorSignInViewModel viewModel)
         {
@@ -28,9 +33,27 @@ namespace Unohana.Controllers
                 return View(viewModel);
             }
         }
-        public ActionResult TutorSignUp()
+        [HttpPost]
+        public ActionResult TutorSignUp(TutorSignUpViewModel viewModel)
         {
-            return View();
+            try
+            {
+                if (ModelState.IsValid is false)
+                    return View(viewModel);
+
+                Console.WriteLine(viewModel.Email);
+                Console.WriteLine(viewModel.Password);
+                Console.WriteLine(viewModel.EmployeeId);
+                Console.WriteLine(viewModel.FirstName);
+                Console.WriteLine(viewModel.LastName);
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("TutorSignIn error: " + ex.Message);
+                return View(viewModel);
+            }
         }
 
 
@@ -38,6 +61,11 @@ namespace Unohana.Controllers
         {
             return View();
         }
+        public ActionResult StudentSignUp()
+        {
+            return View();
+        }
+
         [HttpPost]
         public ActionResult StudentSignIn(StudentSignInViewModel viewModel)
         {
@@ -57,9 +85,28 @@ namespace Unohana.Controllers
                 return View(viewModel);
             }
         }
-        public ActionResult StudentSignUp()
+        [HttpPost]
+        public ActionResult StudentSignUp(StudentSignUpViewModel viewModel)
         {
-            return View();
+            try
+            {
+                if (ModelState.IsValid is false)
+                    return View(viewModel);
+
+                Console.WriteLine(viewModel.Email);
+                Console.WriteLine(viewModel.Password);
+                Console.WriteLine(viewModel.StudentId);
+                Console.WriteLine(viewModel.FirstName);
+                Console.WriteLine(viewModel.LastName);
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("TutorSignIn error: " + ex.Message);
+                return View(viewModel);
+            }
         }
+
     }
 }

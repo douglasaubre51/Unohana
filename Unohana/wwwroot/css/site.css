@@ -73,3 +73,7 @@ body {
 .invalid-error-label {
   color: red;
 }
+
+.auth-link {
+  text-decoration: none;
+}

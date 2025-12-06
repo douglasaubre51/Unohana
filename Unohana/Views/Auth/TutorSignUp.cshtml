@@ -1,26 +1,37 @@
-﻿@{
+﻿@using Unohana.ViewModels.Auth
+
+@model TutorSignUpViewModel
+
+@{
     ViewData["Title"] = "Tutor SignUp";
 }
 
-<div class="center-content">
-    <h1 class="display-4">Create new Tutor Account</h1>
+<form asp-action="TutorSignUp" asp-controller="Auth" method="post">
+    <div class="center-content">
+        <h1 class="display-4">Create new Tutor Account</h1>
 
-    <span class="label">First name</span>
-    <input class="text-box" type="text" />
+        <span class="label">First name</span>
+        <span asp-validation-for="@Model.FirstName" class="invalid-error-label"></span>
+        <input asp-for="@Model.FirstName" class="text-box" type="text" />
 
-    <span class="label">Last name</span>
-    <input class="text-box" type="text" />
+        <span class="label">Last name</span>
+        <span asp-validation-for="@Model.LastName" class="invalid-error-label"></span>
+        <input asp-for="@Model.LastName" class="text-box" type="text" />
 
-    <span class="label">Employee id</span>
-    <input class="text-box" type="number" />
+        <span class="label">Employee id</span>
+        <span asp-validation-for="@Model.EmployeeId" class="invalid-error-label"></span>
+        <input asp-for="@Model.EmployeeId" class="text-box" type="number" />
 
-    <span class="label">Email</span>
-    <input class="text-box" type="email" />
+        <span class="label">Email</span>
+        <span asp-validation-for="@Model.Email" class="invalid-error-label"></span>
+        <input asp-for="@Model.Email" class="text-box" type="email" />
 
-    <span class="label">Password</span>
-    <input class="text-box" type="password" />
+        <span class="label">Password</span>
+        <span asp-validation-for="@Model.Password" class="invalid-error-label"></span>
+        <input asp-for="@Model.Password" class="text-box" type="password" />
 
-    <button class="primary-btn">continue</button>
+        <button class="primary-btn">continue</button>
 
-    <a asp-action="TutorSignIn" asp-controller="Auth">already have an account ?</a>
-</div>
+        <a asp-action="TutorSignIn" asp-controller="Auth">already have an account ?</a>
+    </div>
+</form>
