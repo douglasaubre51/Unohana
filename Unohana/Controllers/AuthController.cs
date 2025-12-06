@@ -7,27 +7,45 @@ public class AuthController(
     private readonly TutorRepository _tutorRepo = tutorRepo;
     private readonly StudentRepository _studentRepo = studentRepo;
 
+
+    // TUTOR Actions :
+
     public ActionResult TutorSignIn()
-    {
-        return View();
-    }
+        => View();
     public ActionResult TutorSignUp()
-    {
-        return View();
-    }
+        => View();
 
     [HttpPost]
-    public ActionResult TutorSignIn(TutorSignInViewModel viewModel)
+    public async Task<ActionResult> TutorSignIn(TutorSignInViewModel viewModel)
     {
         try
         {
             if (ModelState.IsValid is false)
                 return View(viewModel);
 
-            Console.WriteLine(viewModel.Email);
-            Console.WriteLine(viewModel.Password);
+            if (AccountValidator.ValidateTutor(
+                viewModel.Email,
+                viewModel.Password,
+                _tutorRepo.GetQueryable()) is false)
+            {
+                viewModel.InvalidCredentials = true;
+                return View(viewModel);
+            }
 
-            return View(viewModel);
+            Tutor dbTutor = _tutorRepo.GetQueryable()
+                .Where(e => e.Email == viewModel.Email)
+                .Single();
+
+            // SignIn logic
+            CookieDtos dto = CookieAuthUtility.InitTutorCookie(dbTutor);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(dto.ClaimsIdentity),
+                dto.AuthenticationProperties
+            );
+
+            return RedirectToAction("ChannelManager", "Channel");
         }
         catch (Exception ex)
         {
@@ -63,31 +81,48 @@ public class AuthController(
     }
 
 
+    // STUDENT Actions :
+
     public ActionResult StudentSignIn()
-    {
-        return View();
-    }
+        => View();
     public ActionResult StudentSignUp()
-    {
-        return View();
-    }
+        => View();
 
     [HttpPost]
-    public ActionResult StudentSignIn(StudentSignInViewModel viewModel)
+    public async Task<ActionResult> StudentSignIn(StudentSignInViewModel viewModel)
     {
         try
         {
             if (ModelState.IsValid is false)
                 return View(viewModel);
 
-            Console.WriteLine(viewModel.Email);
-            Console.WriteLine(viewModel.Password);
+            if (AccountValidator.ValidateStudent(
+                viewModel.Email,
+                viewModel.Password,
+                _studentRepo.GetQueryable()) is false)
+            {
+                viewModel.InvalidCredentials = true;
+                return View(viewModel);
+            }
 
-            return View(viewModel);
+            Student dbStudent = _studentRepo.GetQueryable()
+                .Where(e => e.Email == viewModel.Email)
+                .Single();
+
+            // signin logic
+            CookieDtos dto = CookieAuthUtility.InitStudentCookie(dbStudent);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(dto.ClaimsIdentity),
+                dto.AuthenticationProperties
+            );
+
+            return RedirectToAction("AllChannels", "Channel");
         }
         catch (Exception ex)
         {
-            Console.WriteLine("TutorSignIn error: " + ex.Message);
+            Console.WriteLine("StudentSignIn error: " + ex.Message);
             return View(viewModel);
         }
     }
@@ -115,6 +150,24 @@ public class AuthController(
         {
             Console.WriteLine("StudentSignIn error: " + ex.Message);
             return View(viewModel);
+        }
+    }
+
+
+    // Common Actions :
+
+    public async Task<ActionResult> SignOutUser()
+    {
+        try
+        {
+            Console.WriteLine("Signing out tutor ...");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("TutorSignOut error: " + ex.Message);
+            return View();
         }
     }
 }

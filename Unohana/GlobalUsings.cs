@@ -1,10 +1,16 @@
 global using System.ComponentModel.DataAnnotations;
+global using System.Security.Claims;
 global using AutoMapper;
 global using EntityFramework.Exceptions.Common;
 global using EntityFramework.Exceptions.MySQL.Pomelo;
+global using Microsoft.AspNetCore.Authentication;
+global using Microsoft.AspNetCore.Authentication.Cookies;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Unohana.Data;
+global using Unohana.Dtos;
+global using Unohana.Enums;
 global using Unohana.Models;
 global using Unohana.Repositories;
 global using Unohana.Utilities;

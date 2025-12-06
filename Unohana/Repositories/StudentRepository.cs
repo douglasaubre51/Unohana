@@ -4,6 +4,9 @@ public class StudentRepository(ApplicationDbContext context)
 {
     private readonly ApplicationDbContext _context = context;
 
+    public IQueryable<Student> GetQueryable()
+        => _context.Students;
+
     public Student? GetById(int studentId)
         => _context.Students.SingleOrDefault(t => t.Id == studentId);
     public List<Student> GetAll()

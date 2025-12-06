@@ -18,6 +18,11 @@
         <span asp-validation-for="@Model.Password" class="invalid-error-label"></span>
         <input asp-for="@Model.Password" class="text-box" type="password" />
 
+        @if (@Model is not null && @Model.InvalidCredentials is true)
+        {
+            <span class="invalid-error-label">Invalid Login Attempt !</span>
+        }
+
         <button class="primary-btn">continue</button>
 
         <a asp-action="StudentSignUp" asp-controller="Auth">don't have an account ?</a>
