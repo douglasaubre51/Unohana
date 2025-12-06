@@ -30,6 +30,11 @@
         <span asp-validation-for="@Model.Password" class="invalid-error-label"></span>
         <input asp-for="@Model.Password" class="text-box" type="password" />
 
+        @if (@Model is not null && @Model.DuplicateAccountError is true)
+        {
+            <span class="invalid-error-label">Account already exists !</span>
+        }
+
         <button class="primary-btn">continue</button>
 
         <a asp-action="StudentSignIn" asp-controller="Auth">already have an account ?</a>

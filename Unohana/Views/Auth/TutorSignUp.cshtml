@@ -32,6 +32,11 @@
 
         <button class="primary-btn">continue</button>
 
+        @if (@Model is not null && @Model.DuplicateAccountError is true)
+        {
+            <span class='invalid-error-label'>Account already exists !</span>
+        }
+
         <a asp-action="TutorSignIn" asp-controller="Auth">already have an account ?</a>
     </div>
 </form>

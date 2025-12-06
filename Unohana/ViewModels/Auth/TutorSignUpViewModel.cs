@@ -10,4 +10,6 @@ public class TutorSignUpViewModel
     [StringLength(maximumLength: 12, MinimumLength = 8)]
     public string Password { get; set; } = string.Empty;
     public bool IsAdmin { get; set; }
+
+    public bool DuplicateAccountError { get; set; }
 }
