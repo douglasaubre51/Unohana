@@ -1,9 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Unohana.ViewModels.Channel
+
+@model ChannelManagerViewModel
+
 @{
+    ViewData["Title"] = "Manage Channels";
 }
 
-<span class="display-4">Channel Manager</span>
+<form asp-action="AddNewChannel" asp-controller="Channel" method="post">
+    <div class="center-content">
+        <span class="display-6">Channel Manager</span>
 
-<a asp-action="SignOutUser" asp-controller="Auth">Logout tutor</a>
+        <span class="display-2" style="color:green">New Channel</span>
+        <span class="label">Title</span>
+        <span class="invalid-error-label" asp-validation-for="@Model.ChannelTitleField"></span>
+        <input asp-for="@Model.ChannelTitleField" class="text-box" type="text" />
+
+        <button class="primary-btn">Add</button>
+    </div>
+</form>
+
+<hr />
+
+<div class="center-content">
+    <span class="display-2" style="margin-top:40px;margin-bottom:20px">All Channels</span>
+
+    @if (@Model is not null && @Model.Channels is not null)
+    {
+        <div class='channel-collection'>
+            @foreach (var i in @Model.Channels)
+            {
+                <div class='channel-card'>
+                    <span class="display-6">@i.Title</span>
+
+                    <div class="channel-button-bar">
+                        <button class="primary-btn">Edit</button>
+                        <button class="warning-btn">Delete</button>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

@@ -3,15 +3,18 @@
 }
 
 <style>
-    @* .auth-btn {
-        width: 100%;
-        padding: 6px 0px;
-        border: 1px solid grey;
-    } *@
+    .hero-content {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        justify-content: center;
+        margin-top: 10%;
+    }
 </style>
 
-<div class="text-center" style="display:flex;flex-direction:column;gap:4px;">
-    <h1 class="display-4">Unohana</h1>
+<div class="hero-content">
+    <h1 class="display-2">Unohana</h1>
 
     <a class="auth-link" asp-controller="Auth" asp-action="StudentSignIn">
         <button class="primary-btn" style="width:240px">Student SignIn</button>

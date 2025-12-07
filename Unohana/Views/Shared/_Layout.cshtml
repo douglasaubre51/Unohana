@@ -25,8 +25,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channel"
+                                asp-action="AllChannels">Channels</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Channel"
+                                asp-action="ChannelManager">Manage Channels</a>
+                        </li>
                     </ul>
                 </div>
+                <a class="auth-link" style="color:red" asp-action="SignOutUser" asp-controller="Auth">Logout</a>
             </div>
         </nav>
     </header>

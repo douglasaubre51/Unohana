@@ -6,9 +6,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.AccessDeniedPath = "/Forbidden/";
+        options.AccessDeniedPath = "/Error/InvalidAttempt";
         options.ExpireTimeSpan = TimeSpan.FromDays(7);
         options.SlidingExpiration = true;
+        options.LoginPath = "/Error/InvalidAttempt";
     });
 
 string? connString = builder.Configuration.GetConnectionString("UnohanaDbString");

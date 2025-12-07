@@ -70,10 +70,87 @@ body {
   border: 1px solid #333333;
 }
 
+.secondary-btn {
+  border: 1px solid black;
+  border-radius: 4px;
+
+  background-color: white;
+  color: black;
+
+  padding: 6px 0px;
+  margin-top: 10px;
+}
+
+.secondary-btn:hover {
+  background-color: lightgrey;
+  border: 1px solid black;
+}
+
+.warning-btn {
+  border: 1px solid red;
+  border-radius: 4px;
+
+  background-color: white;
+  color: red;
+
+  padding: 6px 0px;
+  margin-top: 10px;
+}
+
+.warning-btn:hover {
+  background-color: red;
+  border: 1px solid red;
+  color: white;
+}
+
 .invalid-error-label {
   color: red;
 }
 
 .auth-link {
   text-decoration: none;
+}
+
+.channel-collection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-height: 400px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.channel-collection :first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.channel-collection :last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.channel-card {
+  padding: 20px 20px;
+  border: 1px solid lightgrey;
+}
+
+.channel-card:hover {
+  border: 1px solid grey;
+  background-color: lightgreen;
+}
+
+.channel-card:hover span {
+  color: black;
+}
+
+.channel-button-bar {
+  display: flex;
+  justify-content: end;
+  gap: 4px;
+}
+
+.channel-button-bar button {
+  width: 100px;
 }
