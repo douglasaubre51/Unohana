@@ -118,7 +118,10 @@ body {
 
   max-height: 400px;
   overflow-y: scroll;
-  scrollbar-width: thin;
+}
+
+.channel-collection::-webkit-scrollbar {
+  display: none;
 }
 
 .channel-collection :first-child {

@@ -14,7 +14,11 @@ public class ChannelRepository(ApplicationDbContext context)
         _context.Channels.Add(channel);
         Save();
     }
-
+    public void Update(Channel channel)
+    {
+        _context.Channels.Update(channel);
+        Save();
+    }
     void Save()
        => _context.SaveChanges();
 }

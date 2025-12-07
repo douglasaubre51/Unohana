@@ -86,14 +86,63 @@ namespace Unohana.Controllers
             try
             {
                 Console.WriteLine("channel id: " + id);
-                return View();
+                Channel? dbChannel = _channelRepo.GetById(id);
+                if (dbChannel is null)
+                {
+                    Console.WriteLine("selected channel is null !");
+                    return RedirectToAction(
+                        "ChannelManager",
+                        "Channel",
+                        null
+                    );
+                }
+
+                ChannelStudentDto channelStudentDto = new()
+                {
+                    Id = dbChannel.Id,
+                    Title = dbChannel.Title,
+                    Students = dbChannel.Students
+                };
+
+
+                return View(new EditChannelViewModel() { CurrentChannel = channelStudentDto });
             }
             catch (Exception ex)
             {
                 Console.WriteLine("EditChannel error: " + ex.Message);
-                return View();
+                return RedirectToAction(
+                    "ChannelManager",
+                    "Channel",
+                    null
+                );
             }
         }
+        [HttpPost]
+        [Authorize(Roles = "TUTOR")]
+        public async Task<IActionResult> EditChannel(EditChannelViewModel viewModel)
+        {
+            try
+            {
+                if (ModelState.IsValid is false)
+                    return View(viewModel);
+
+                Channel? dbChannel = _channelRepo.GetById(viewModel.CurrentChannel!.Id);
+                if (dbChannel is null)
+                    return View(viewModel);
+
+                dbChannel.Title = viewModel.CurrentChannel.Title;
+
+                _channelRepo.Update(dbChannel);
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("EditChannel: post: error: " + ex.Message);
+                return View(viewModel);
+            }
+        }
+
+        // Delete action :
 
         [Authorize(Roles = "TUTOR")]
         public async Task<ActionResult> DeleteChannel(int id)

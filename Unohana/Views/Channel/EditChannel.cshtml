@@ -1,4 +1,19 @@
-﻿@{
+﻿@using Unohana.ViewModels.Channel
+
+@model EditChannelViewModel
+
+@{
 }
 
-<span class="display-4">Edit Channel</span>
+<form asp-action="EditChannel" asp-controller="Channel" method="post">
+    <div class="center-content">
+        <span class="display-6">Edit Channel</span>
+
+        <input type="hidden" asp-for="@Model.CurrentChannel!.Id" />
+        <span class="label">Title</span>
+        <span class="invalid-error-label" asp-validation-for="@Model.CurrentChannel!.Title"></span>
+        <input asp-for="@Model.CurrentChannel!.Title" class="text-box" type="text" />
+
+        <button class="primary-btn">Continue</button>
+    </div>
+</form>

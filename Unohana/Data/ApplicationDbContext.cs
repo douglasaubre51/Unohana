@@ -19,9 +19,19 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
         modelBuilder.Entity<Tutor>()
             .HasIndex(e => e.Email)
             .IsUnique();
+        modelBuilder.Entity<Tutor>()
+            .HasIndex(e => e.EmployeeId)
+            .IsUnique();
 
         modelBuilder.Entity<Student>()
             .HasIndex(e => e.Email)
+            .IsUnique();
+        modelBuilder.Entity<Student>()
+            .HasIndex(e => e.StudentId)
+            .IsUnique();
+
+        modelBuilder.Entity<Channel>()
+            .HasIndex(c => c.Title)
             .IsUnique();
 
         base.OnModelCreating(modelBuilder);
