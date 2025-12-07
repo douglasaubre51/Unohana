@@ -42,6 +42,9 @@ namespace Unohana.Controllers
             }
         }
 
+
+        // Channel Manager actions :
+
         [Authorize(Roles = "TUTOR")]
         [HttpPost]
         public ActionResult AddNewChannel(ChannelManagerViewModel viewModel)
@@ -69,6 +72,44 @@ namespace Unohana.Controllers
             catch (Exception ex)
             {
                 Console.WriteLine("AddNewChannel error: " + ex.Message);
+                return RedirectToAction(
+                    "ChannelManager",
+                    "Channel",
+                    null
+                );
+            }
+        }
+
+        [Authorize(Roles = "TUTOR")]
+        public async Task<ActionResult> EditChannel(int id)
+        {
+            try
+            {
+                Console.WriteLine("channel id: " + id);
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("EditChannel error: " + ex.Message);
+                return View();
+            }
+        }
+
+        [Authorize(Roles = "TUTOR")]
+        public async Task<ActionResult> DeleteChannel(int id)
+        {
+            try
+            {
+                Console.WriteLine("channel id: " + id);
+                return RedirectToAction(
+                    "ChannelManager",
+                    "Channel",
+                    null
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("EditChannel error: " + ex.Message);
                 return RedirectToAction(
                     "ChannelManager",
                     "Channel",

@@ -33,8 +33,12 @@
                     <span class="display-6">@i.Title</span>
 
                     <div class="channel-button-bar">
-                        <button class="primary-btn">Edit</button>
-                        <button class="warning-btn">Delete</button>
+                        <a asp-action="EditChannel" asp-controller="Channel" asp-route-id="@i.Id">
+                            <button class="primary-btn">Edit</button>
+                        </a>
+                        <a asp-action="DeleteChannel" asp-controller="Channel">
+                            <button class="warning-btn">Delete</button>
+                        </a>
                     </div>
                 </div>
             }
