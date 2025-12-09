@@ -3,10 +3,12 @@ using Unohana.ViewModels.Channel;
 namespace Unohana.Controllers
 {
     [Authorize]
-    public class ChannelController(ChannelRepository channelRepo) : Controller
+    public class ChannelController(
+        ChannelRepository channelRepo,
+        StudentRepository studentRepo) : Controller
     {
         private readonly ChannelRepository _channelRepo = channelRepo;
-
+        private readonly StudentRepository _studentRepo = studentRepo;
 
         // All channels
 
@@ -104,8 +106,13 @@ namespace Unohana.Controllers
                     Students = dbChannel.Students
                 };
 
+                List<Student> availableStudents = _studentRepo.GetAll();
 
-                return View(new EditChannelViewModel() { CurrentChannel = channelStudentDto });
+                return View(new EditChannelViewModel()
+                {
+                    CurrentChannel = channelStudentDto,
+                    AvailableStudents = availableStudents
+                });
             }
             catch (Exception ex)
             {
@@ -163,6 +170,32 @@ namespace Unohana.Controllers
                     "ChannelManager",
                     "Channel",
                     null
+                );
+            }
+        }
+
+
+        // Add students :
+
+        [Authorize(Roles = "TUTOR")]
+        public async Task<ActionResult> AddStudent(int id, int channelId)
+        {
+            try
+            {
+                Console.WriteLine("Add student clicked: " + id);
+                return RedirectToAction(
+                    "EditChannel",
+                    "Channel",
+                    channelId
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("AddStudent error: " + ex.Message);
+                return RedirectToAction(
+                    "EditChannel",
+                    "Channel",
+                    channelId
                 );
             }
         }

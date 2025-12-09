@@ -2,18 +2,65 @@
 
 @model EditChannelViewModel
 
-@{
-}
+<style>
+    .flex-container {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
 
-<form asp-action="EditChannel" asp-controller="Channel" method="post">
-    <div class="center-content">
-        <span class="display-6">Edit Channel</span>
+    .vertical-line {
+        border: 1px solid lightgrey;
+        border-left: none;
+        border-top: none;
+        border-bottom: none;
+        height: 100vh;
+    }
+</style>
 
-        <input type="hidden" asp-for="@Model.CurrentChannel!.Id" />
-        <span class="label">Title</span>
-        <span class="invalid-error-label" asp-validation-for="@Model.CurrentChannel!.Title"></span>
-        <input asp-for="@Model.CurrentChannel!.Title" class="text-box" type="text" />
+<div class="flex-container">
+    <div class="left-content">
+        <form asp-action="EditChannel" asp-controller="Channel" method="post">
+            <div class="center-content" style="width:400px">
+                <span class="display-6">Edit Channel</span>
 
-        <button class="primary-btn">Continue</button>
+                <input type="hidden" asp-for="@Model.CurrentChannel!.Id" />
+                <span class="label">Title</span>
+                <span class="invalid-error-label" asp-validation-for="@Model.CurrentChannel!.Title"></span>
+                <input asp-for="@Model.CurrentChannel!.Title" class="text-box" type="text" />
+
+                <button class="primary-btn">Continue</button>
+            </div>
+        </form>
     </div>
-</form>
+
+    <div class="vertical-line"></div>
+
+    <div class="right-content" style="width:100%">
+        <div class="center-content">
+            <span class="display-3" style="margin-bottom:20px">Students</span>
+
+            <div class="channel-collection">
+                @if (@Model is not null && @Model.AvailableStudents is not null)
+                {
+                    @foreach (var i in @Model.AvailableStudents)
+                    {
+                        <div class="channel-card">
+                            <span class="display-6">@i.FirstName</span>
+                            <span class="display-6">@i.LastName</span>
+                            <h6 class="display-6">@i.Email</h6>
+                            <h4>Student id: @i.StudentId</h4>
+
+                            <div class="channel-button-bar">
+                                <a class="auth-link" asp-action="AddStudent" asp-route-channnelId="@Model.CurrentChannel!.Id"
+                                    asp-controller="Channel" asp-route-id="@i.Id">
+                                    <button class="primary-btn">Add</button>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
