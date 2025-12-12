@@ -1,0 +1,55 @@
+﻿@using System.Text
+@using Unohana.ViewModels.Chat
+
+@model ChatViewModel
+
+@{
+    ViewData["Title"] = "Channels";
+}
+
+<script src="~/js/tutor_view.js"></script>
+
+
+<div class="grid-contain">
+    <div class="chat-list">
+        @foreach (var i in @Model.Channels!)
+        {
+            <a class="chat-card" asp-action="LoadChatRoom" asp-controller="Chat" asp-route-id="@i.Id">
+                <span class="card-title">@i.Title</span>
+            </a>
+        }
+    </div>
+
+    <div class="spacer"></div>
+
+    @if (@Model is not null && @Model.CurrentChannel is not null)
+    {
+        <div class="chat-room">
+            <span class="display-6">@Model.CurrentChannel.Title</span>
+            <hr />
+
+            @if (@Model.CurrentChannel.Messages is not null)
+            {
+                <div class="message-collection">
+                    @foreach (var m in @Model.CurrentChannel.Messages)
+                    {
+                        <div class="message-card">
+                            <span>@m.Text</span>
+                            <span>@m.CreatedAt</span>
+                            <span>@m.Tutor.FirstName @m.Tutor.LastName</span>
+                        </div>
+                    }
+                </div>
+            }
+
+            <form style="margin-top:auto" asp-action="SendMessage" asp-controller="Chat">
+                <div class="room-footer">
+                    <input type="hidden" asp-for="@Model.CurrentChannel.Id" />
+
+                    <input type="text" asp-for="@Model.Message" class="text-box" />
+                    <button class="primary-btn">Send</button>
+                </div>
+            </form>
+        </div>
+    }
+</div>

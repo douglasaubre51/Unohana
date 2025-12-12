@@ -157,3 +157,89 @@ body {
 .channel-button-bar button {
   width: 100px;
 }
+
+.grid-contain {
+  display: grid;
+  grid-template-columns: 1fr 60px 2fr;
+}
+
+.chat-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 80vh;
+
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.chat-list :first-child {
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border-top: 1px solid ligthgrey;
+}
+
+.chat-list :last-child {
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-bottom: 1px solid ligthgrey;
+}
+
+.chat-card {
+  min-width: 200px;
+  min-height: 100px;
+  height: 100px;
+
+  font-size: 18px;
+  color: #333333;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4x;
+
+  padding: 12px;
+
+  text-decoration: none;
+  color: grey;
+}
+
+
+.chat-card:hover {
+  background-color: lightgreen;
+  box-shadow: 0px 1px 10px 1px rgba(0, 0, 0, .2);
+}
+
+.chat-card:hover .card-title {
+  color: black;
+}
+
+.vert-line {
+  border-right: 1px solid lightgrey;
+  min-height: 100%;
+}
+
+.chat-room {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-footer {
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+
+  height: 50px;
+}
+
+.room-footer .text-box {
+  height: 100%;
+  width: 100%;
+}
+
+.room-footer .primary-btn {
+  min-width: 100px;
+  min-height: 100%;
+  margin: 0px;
+}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Unohana.Data;
 
@@ -11,9 +12,11 @@ using Unohana.Data;
 namespace Unohana.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251212151448_Added one to many for messages from channel")]
+    partial class Addedonetomanyformessagesfromchannel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,7 +191,7 @@ namespace Unohana.Migrations
 
             modelBuilder.Entity("Unohana.Models.Message", b =>
                 {
-                    b.HasOne("Unohana.Models.Channel", "Channel")
+                    b.HasOne("Unohana.Models.Channel", null)
                         .WithMany("Messages")
                         .HasForeignKey("ChannelId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -199,8 +202,6 @@ namespace Unohana.Migrations
                         .HasForeignKey("TutorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Channel");
 
                     b.Navigation("Tutor");
                 });

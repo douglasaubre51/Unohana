@@ -12,6 +12,8 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Error/InvalidAttempt";
     });
 
+builder.Services.AddHttpContextAccessor();
+
 string? connString = builder.Configuration.GetConnectionString("UnohanaDbString");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
