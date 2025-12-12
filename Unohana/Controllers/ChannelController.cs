@@ -103,15 +103,19 @@ namespace Unohana.Controllers
                 {
                     Id = dbChannel.Id,
                     Title = dbChannel.Title,
-                    Students = dbChannel.Students
+                    Students = dbChannel.Students!
                 };
 
-                List<Student> availableStudents = _studentRepo.GetAll();
+                List<Student> dbStudents = _studentRepo.GetAll();
+
+                List<Student> joinedStudents = [.. dbStudents.Where(c => c.Channels!.Contains(dbChannel))];
+                List<Student> availableStudents = [.. dbStudents.Where(c => !c.Channels!.Contains(dbChannel))];
 
                 return View(new EditChannelViewModel()
                 {
                     CurrentChannel = channelStudentDto,
-                    AvailableStudents = availableStudents
+                    AvailableStudents = availableStudents,
+                    JoinedStudents = joinedStudents
                 });
             }
             catch (Exception ex)
@@ -183,19 +187,57 @@ namespace Unohana.Controllers
             try
             {
                 Console.WriteLine("Add student clicked: " + id);
-                return RedirectToAction(
-                    "EditChannel",
-                    "Channel",
-                    channelId
+
+                Channel? selectedChannel = _channelRepo.GetById(channelId);
+                Student? selectedStudent = _studentRepo.GetById(id);
+                if (selectedChannel!.Students!.Contains(selectedStudent!) is false)
+                {
+                    selectedChannel!.Students!.Add(selectedStudent!);
+                    _channelRepo.Save();
+                }
+
+                Console.WriteLine("AddStudent navigating to editChannel: " + id);
+
+                return Redirect(
+                    $"~/Channel/EditChannel/{channelId}"
                 );
             }
             catch (Exception ex)
             {
                 Console.WriteLine("AddStudent error: " + ex.Message);
-                return RedirectToAction(
-                    "EditChannel",
-                    "Channel",
-                    channelId
+                return Redirect(
+                    $"~/Channel/EditChannel/{channelId}"
+                );
+            }
+        }
+
+        [Authorize(Roles = "TUTOR")]
+        public async Task<ActionResult> RemoveStudent(int id, int channelId)
+        {
+            try
+            {
+                Console.WriteLine("Remove student clicked: " + id);
+
+                Channel? selectedChannel = _channelRepo.GetById(channelId);
+                Student? selectedStudent = _studentRepo.GetById(id);
+                if (selectedChannel!.Students!.Contains(selectedStudent!) is true)
+                {
+                    selectedChannel!.Students!.Remove(selectedStudent!);
+                    _channelRepo.Save();
+                }
+
+                Console.WriteLine("RemoveStudent navigating to editChannel: " + id);
+
+                return Redirect(
+                    $"~/Channel/EditChannel/{channelId}"
+                );
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Remove Student error: " + ex.Message);
+
+                return Redirect(
+                    $"~/Channel/EditChannel/{channelId}"
                 );
             }
         }

@@ -2,6 +2,10 @@
 
 @model EditChannelViewModel
 
+@{
+    ViewData["Title"] = Model.CurrentChannel!.Title;
+}
+
 <style>
     .flex-container {
         display: flex;
@@ -38,7 +42,7 @@
 
     <div class="right-content" style="width:100%">
         <div class="center-content">
-            <span class="display-3" style="margin-bottom:20px">Students</span>
+            <span class="display-3" style="margin-bottom:16px">Students</span>
 
             <div class="channel-collection">
                 @if (@Model is not null && @Model.AvailableStudents is not null)
@@ -48,11 +52,12 @@
                         <div class="channel-card">
                             <span class="display-6">@i.FirstName</span>
                             <span class="display-6">@i.LastName</span>
-                            <h6 class="display-6">@i.Email</h6>
-                            <h4>Student id: @i.StudentId</h4>
+                            <h6 class="display-6" style="color:grey;font-size:24px">@i.Email</h6>
+                            <span>Reg no</span>
+                            <h4>@i.StudentId</h4>
 
                             <div class="channel-button-bar">
-                                <a class="auth-link" asp-action="AddStudent" asp-route-channnelId="@Model.CurrentChannel!.Id"
+                                <a class="auth-link" asp-action="AddStudent" asp-route-channelId="@Model.CurrentChannel!.Id"
                                     asp-controller="Channel" asp-route-id="@i.Id">
                                     <button class="primary-btn">Add</button>
                                 </a>
@@ -61,6 +66,30 @@
                     }
                 }
             </div>
+        </div>
+
+        <span class="display-3">Joined Students</span>
+        <div class="channel-collection" style="margin-top:16px">
+            @if (@Model is not null && @Model.JoinedStudents is not null)
+            {
+                @foreach (var i in @Model.JoinedStudents)
+                {
+                    <div class="channel-card">
+                        <span class="display-6">@i.FirstName</span>
+                        <span class="display-6">@i.LastName</span>
+                        <h6 class="display-6" style="color:grey;font-size:24px">@i.Email</h6>
+                        <span>Reg no</span>
+                        <h4>@i.StudentId</h4>
+
+                        <div class="channel-button-bar">
+                            <a class="auth-link" asp-action="RemoveStudent" asp-route-channelId="@Model.CurrentChannel!.Id"
+                                asp-controller="Channel" asp-route-id="@i.Id">
+                                <button class="warning-btn">Remove</button>
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
 </div>

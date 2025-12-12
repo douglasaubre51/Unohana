@@ -10,7 +10,7 @@ public class StudentRepository(ApplicationDbContext context)
     public Student? GetById(int studentId)
         => _context.Students.SingleOrDefault(t => t.Id == studentId);
     public List<Student> GetAll()
-        => [.. _context.Students];
+        => [.. _context.Students.Include(c=>c.Channels)];
 
     public void Add(Student student)
     {

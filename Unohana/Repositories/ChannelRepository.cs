@@ -5,7 +5,8 @@ public class ChannelRepository(ApplicationDbContext context)
     private readonly ApplicationDbContext _context = context;
 
     public Channel? GetById(int channelId)
-        => _context.Channels.SingleOrDefault(t => t.Id == channelId);
+        => _context.Channels.Include(s=>s.Students)
+                            .SingleOrDefault(t => t.Id == channelId);
     public List<Channel> GetAll()
         => [.. _context.Channels];
 
@@ -19,7 +20,7 @@ public class ChannelRepository(ApplicationDbContext context)
         _context.Channels.Update(channel);
         Save();
     }
-    void Save()
+    public void Save()
        => _context.SaveChanges();
 }
 
