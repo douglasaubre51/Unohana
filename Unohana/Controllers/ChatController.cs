@@ -31,11 +31,21 @@ public class ChatController(
         }
     }
 
-    [Authorize(Roles = "TUTOR")]
+    [Authorize(Roles = "TUTOR,STUDENT")]
     public ActionResult TutorChat()
     {
         try
         {
+            // send students to student channel controller !
+            if (Request.Cookies["Role"] == Roles.STUDENT.ToString())
+            {
+                return RedirectToAction(
+                    "StudentChat",
+                    "Student",
+                    null
+                );
+            }
+
             List<Channel> dbChannels = _channelRepo.GetAll();
 
             int id = TempData["SelectedChannelId"] as int? ?? 0;

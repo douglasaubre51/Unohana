@@ -9,7 +9,6 @@ public class AuthController(
 
 
     // TUTOR Actions :
-
     public ActionResult TutorSignIn()
         => View();
     public ActionResult TutorSignUp()
@@ -46,6 +45,7 @@ public class AuthController(
             );
 
             HttpContext.Response.Cookies.Append("Id", dbTutor.Id.ToString());
+            HttpContext.Response.Cookies.Append("Role", Roles.TUTOR.ToString());
 
             return RedirectToAction("ChannelManager", "Channel");
         }
@@ -119,8 +119,10 @@ public class AuthController(
                 new ClaimsPrincipal(dto.ClaimsIdentity),
                 dto.AuthenticationProperties
             );
+            HttpContext.Response.Cookies.Append("Id", dbStudent.Id.ToString());
+            HttpContext.Response.Cookies.Append("Role", Roles.STUDENT.ToString());
 
-            return RedirectToAction("AllChannels", "Channel");
+            return RedirectToAction("StudentChat", "Student");
         }
         catch (Exception ex)
         {

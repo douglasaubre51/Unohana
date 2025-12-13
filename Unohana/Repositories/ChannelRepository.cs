@@ -11,7 +11,10 @@ public class ChannelRepository(ApplicationDbContext context)
                             .Include(t => t.Tutors)
                             .SingleOrDefault(t => t.Id == channelId);
     public List<Channel> GetAll()
-        => [.. _context.Channels.Include(m => m.Messages)!.ThenInclude(t => t.Tutor).Include(t => t.Tutors)];
+        => _context.Channels.Include(m => m.Messages)!
+                            .ThenInclude(t => t.Tutor)
+                            .Include(t => t.Tutors)
+                            .ToList();
 
     public void Add(Channel channel)
     {
@@ -25,5 +28,8 @@ public class ChannelRepository(ApplicationDbContext context)
     }
     public void Save()
        => _context.SaveChanges();
+
+    public IQueryable<Channel> GetQueryable()
+        => _context.Channels;
 }
 

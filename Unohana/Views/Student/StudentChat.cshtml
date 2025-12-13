@@ -1,19 +1,15 @@
-﻿@using System.Text
-@using Unohana.ViewModels.Chat
-
+﻿@using System.Diagnostics.Eventing.Reader
 @model ChatViewModel
 
 @{
     ViewData["Title"] = "Channels";
 }
 
-<script src="~/js/tutor_view.js"></script>
-
 <div class="grid-contain">
     <div class="chat-list">
         @foreach (var i in @Model.Channels!)
         {
-            <a class="chat-card" asp-action="LoadChatRoom" asp-controller="Chat" asp-route-id="@i.Id">
+            <a class="chat-card" asp-action="LoadChatRoom" asp-controller="Student" asp-route-id="@i.Id">
                 <span class="card-title">@i.Title</span>
             </a>
         }
@@ -40,15 +36,6 @@
                     }
                 </div>
             }
-
-            <form style="margin-top:auto" asp-action="SendMessage" asp-controller="Chat">
-                <div class="room-footer">
-                    <input type="hidden" asp-for="@Model.CurrentChannel.Id" />
-
-                    <textarea asp-for="@Model.Message" class="text-box" rows="5"></textarea>
-                    <button class="primary-btn">Send</button>
-                </div>
-            </form>
         </div>
     }
 </div>
