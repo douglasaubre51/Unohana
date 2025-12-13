@@ -71,13 +71,6 @@ public class ChatController(
                 );
 
             string? tutorId = HttpContext.Request.Cookies["Id"];
-            string? tutorRole = HttpContext.Request.Cookies["Role"];
-
-            Console.WriteLine("writing message !");
-
-            Console.WriteLine("tutorId: " + tutorId);
-            Console.WriteLine("tutorRole: " + tutorRole);
-
             if (string.IsNullOrEmpty(tutorId))
                 return RedirectToAction(
                     "TutorChat",
@@ -86,9 +79,6 @@ public class ChatController(
                 );
 
             var dbTutor = _tutorRepo.GetById(int.Parse(tutorId));
-
-            Debug.WriteLine("writing message !");
-
             var dbChannel = _channelRepo.GetById(viewModel.CurrentChannel!.Id);
             dbChannel!.Messages!.Add(new Message()
             {
@@ -99,10 +89,10 @@ public class ChatController(
             });
             _channelRepo.Save();
 
+            TempData["SelectedChannelId"] = viewModel.CurrentChannel.Id;
             return RedirectToAction(
                 "TutorChat",
-                "Chat",
-                viewModel
+                "Chat"
             );
         }
         catch (Exception ex)
@@ -110,8 +100,7 @@ public class ChatController(
             Console.WriteLine($"SendMessage error: {ex.Message}");
             return RedirectToAction(
                 "TutorChat",
-                "Chat",
-                viewModel
+                "Chat"
             );
         }
     }
