@@ -1,0 +1,91 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\workspace\\dotnet mvc\\Unohana\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|d:\\workspace\\dotnet mvc\\unohana\\unohana\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|solutionrelative:unohana\\controllers\\chatcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|d:\\workspace\\dotnet mvc\\unohana\\unohana\\views\\chat\\tutorchat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|solutionrelative:unohana\\views\\chat\\tutorchat.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|d:\\workspace\\dotnet mvc\\unohana\\unohana\\repositories\\channelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9CB2DE88-BE35-EB2F-146F-2515FF04F4B6}|Unohana\\Unohana.csproj|solutionrelative:unohana\\repositories\\channelrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 239,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ChannelRepository.cs",
+              "DocumentMoniker": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Repositories\\ChannelRepository.cs",
+              "RelativeDocumentMoniker": "Unohana\\Repositories\\ChannelRepository.cs",
+              "ToolTip": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Repositories\\ChannelRepository.cs",
+              "RelativeToolTip": "Unohana\\Repositories\\ChannelRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T04:20:45.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TutorChat.cshtml",
+              "DocumentMoniker": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Views\\Chat\\TutorChat.cshtml",
+              "RelativeDocumentMoniker": "Unohana\\Views\\Chat\\TutorChat.cshtml",
+              "ToolTip": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Views\\Chat\\TutorChat.cshtml",
+              "RelativeToolTip": "Unohana\\Views\\Chat\\TutorChat.cshtml",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAACUAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-13T04:15:23.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ChatController.cs",
+              "DocumentMoniker": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Controllers\\ChatController.cs",
+              "RelativeDocumentMoniker": "Unohana\\Controllers\\ChatController.cs",
+              "ToolTip": "D:\\workspace\\dotnet mvc\\Unohana\\Unohana\\Controllers\\ChatController.cs",
+              "RelativeToolTip": "Unohana\\Controllers\\ChatController.cs",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-13T03:51:50.869Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

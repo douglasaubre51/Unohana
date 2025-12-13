@@ -17,3 +17,4 @@ global using Unohana.Repositories;
 global using Unohana.Utilities;
 global using Unohana.ViewModels;
 global using Unohana.ViewModels.Auth;
+global using Unohana.ViewModels.Chat;

@@ -1,16 +1,35 @@
-using Unohana.ViewModels.Chat;
-
 namespace Unohana.Controllers;
 
 public class ChatController(
     ChannelRepository channelRepo,
-    TutorRepository tutorRepo,
-    IHttpContextAccessor httpContextAccessor
+    TutorRepository tutorRepo
 ) : Controller
 {
     private readonly ChannelRepository _channelRepo = channelRepo;
     private readonly TutorRepository _tutorRepo = tutorRepo;
-    private readonly IHttpContextAccessor _httpContext = httpContextAccessor;
+
+    [Authorize(Roles = "TUTOR")]
+    public ActionResult LoadChatRoom(int id)
+    {
+        try
+        {
+            TempData["SelectedChannelId"] = id;
+            return RedirectToAction(
+                "TutorChat",
+                "Chat",
+                null
+            );
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"LoadChatRoom error: {ex.Message}");
+            return RedirectToAction(
+                "TutorChat",
+                "Chat",
+                null
+            );
+        }
+    }
 
     [Authorize(Roles = "TUTOR")]
     public ActionResult TutorChat()
@@ -18,7 +37,11 @@ public class ChatController(
         try
         {
             List<Channel> dbChannels = _channelRepo.GetAll();
-            Channel initialChannel = dbChannels.First();
+
+            int id = TempData["SelectedChannelId"] as int? ?? 0;
+            Console.WriteLine($"current ChannelId: {id}");
+
+            Channel initialChannel = (id != 0) ? _channelRepo.GetById(id)! : dbChannels.First();
             ChatViewModel viewModel = new()
             {
                 Channels = dbChannels,
@@ -47,8 +70,13 @@ public class ChatController(
                     viewModel
                 );
 
-            string? tutorId = _httpContext.HttpContext!.Request.Cookies["Id"];
-            Console.WriteLine("tutorid: " + tutorId);
+            string? tutorId = HttpContext.Request.Cookies["Id"];
+            string? tutorRole = HttpContext.Request.Cookies["Role"];
+
+            Console.WriteLine("writing message !");
+
+            Console.WriteLine("tutorId: " + tutorId);
+            Console.WriteLine("tutorRole: " + tutorRole);
 
             if (string.IsNullOrEmpty(tutorId))
                 return RedirectToAction(
@@ -58,6 +86,8 @@ public class ChatController(
                 );
 
             var dbTutor = _tutorRepo.GetById(int.Parse(tutorId));
+
+            Debug.WriteLine("writing message !");
 
             var dbChannel = _channelRepo.GetById(viewModel.CurrentChannel!.Id);
             dbChannel!.Messages!.Add(new Message()
@@ -85,5 +115,4 @@ public class ChatController(
             );
         }
     }
-
 }

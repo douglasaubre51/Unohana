@@ -34,9 +34,9 @@
                     @foreach (var m in @Model.CurrentChannel.Messages)
                     {
                         <div class="message-card">
-                            <span>@m.Text</span>
-                            <span>@m.CreatedAt</span>
-                            <span>@m.Tutor.FirstName @m.Tutor.LastName</span>
+                            <span class="message-text">@m.Text</span>
+                            <span class="message-time">@m.CreatedAt</span>
+                            <span class="message-author">@m.Tutor.FirstName @m.Tutor.LastName</span>
                         </div>
                     }
                 </div>

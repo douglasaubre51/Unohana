@@ -243,3 +243,40 @@ body {
   min-height: 100%;
   margin: 0px;
 }
+
+.message-collection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  height: 60vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+
+  margin-bottom: 16px;
+}
+
+.message-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 10px;
+
+  background-color: skyblue;
+  border-radius: 4px;
+}
+
+.message-text {
+  font-size: 16px;
+  color: black;
+}
+
+.message-time {
+  font-size: 10px;
+  color: grey;
+}
+
+.message-author {
+  align-self: end;
+}

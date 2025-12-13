@@ -45,6 +45,8 @@ public class AuthController(
                 dto.AuthenticationProperties
             );
 
+            HttpContext.Response.Cookies.Append("Id", dbTutor.Id.ToString());
+
             return RedirectToAction("ChannelManager", "Channel");
         }
         catch (Exception ex)
