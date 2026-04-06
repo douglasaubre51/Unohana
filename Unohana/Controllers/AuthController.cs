@@ -142,7 +142,7 @@ public class AuthController(
             Student newStudent = mapper.Map<Student>(viewModel);
             _studentRepo.Add(newStudent);
 
-            return View(viewModel);
+            return RedirectToAction("StudentSignIn", "Auth");
         }
         catch (UniqueConstraintException ex)
         {

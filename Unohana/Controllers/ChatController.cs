@@ -58,6 +58,8 @@ public class ChatController(
                 CurrentChannel = initialChannel
             };
 
+            Console.WriteLine("channel id: " + viewModel.Channels.FirstOrDefault()!.Id);
+
             return View(viewModel);
         }
         catch (Exception ex)
@@ -69,7 +71,7 @@ public class ChatController(
 
     [Authorize(Roles = "TUTOR")]
     [HttpPost]
-    public ActionResult SendMessage(ChatViewModel viewModel)
+    public async Task<ActionResult> SendMessage(ChatViewModel viewModel)
     {
         try
         {
@@ -81,6 +83,14 @@ public class ChatController(
                 );
 
             string? tutorId = HttpContext.Request.Cookies["Id"];
+            if (string.IsNullOrWhiteSpace(tutorId))
+            {
+                tutorId = HttpContext.User.Claims.FirstOrDefault(key => key.Type == "Id")!.Value;
+                Console.WriteLine("Tutor id from Auth Cookie: " + tutorId);
+            }
+
+            Console.WriteLine("Tutor id: " + tutorId);
+
             if (string.IsNullOrEmpty(tutorId))
                 return RedirectToAction(
                     "TutorChat",
