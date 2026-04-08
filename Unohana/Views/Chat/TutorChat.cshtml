@@ -47,7 +47,7 @@
 
             @if (@Model.CurrentChannel.Messages is not null)
             {
-                <div class="message-collection">
+                <div id='message-contain' class="message-collection">
                     @foreach (var m in @Model.CurrentChannel.Messages)
                     {
                         <div class="message-card">
@@ -59,14 +59,18 @@
                 </div>
             }
 
-            <form style="margin-top:auto" asp-action="SendMessage" asp-controller="Chat">
+            <form style="margin-top:auto">
                 <div class="room-footer">
-                    <input type="hidden" asp-for="@Model.CurrentChannel.Id" />
+                    <input type="hidden" id="channel-id" asp-for="@Model.CurrentChannel.Id" />
+                    <input type="hidden" id="user-id" asp-for="@Model.UserId" />
 
-                    <textarea asp-for="@Model.Message" class="text-box" rows="5"></textarea>
-                    <button class="primary-btn">Send</button>
+                    <textarea id="user-message" asp-for="@Model.Message" class="text-box" rows="5"></textarea>
+                    <button id="send-btn" class="primary-btn">Send</button>
                 </div>
             </form>
         </div>
     }
 </div>
+
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/chat.js"></script>

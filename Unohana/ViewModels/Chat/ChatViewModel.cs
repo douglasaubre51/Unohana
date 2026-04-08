@@ -6,4 +6,5 @@ public class ChatViewModel
     public Models.Channel? CurrentChannel { get; set; }
 
     public string Message { get; set; } = string.Empty;
+    public string UserId { get; set; } = string.Empty;
 }

@@ -20,6 +20,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connString, ServerVersion.AutoDetect(connString));
 });
 
+builder.Services.AddSignalR();
+
 // Add repositories.
 builder.Services.AddScoped<TutorRepository>();
 builder.Services.AddScoped<StudentRepository>();
@@ -52,6 +54,8 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
+
+app.MapHub<ChatHub>("/hubs/notice-hub");
 
 
 app.Run();

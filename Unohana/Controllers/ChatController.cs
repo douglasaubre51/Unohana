@@ -51,11 +51,19 @@ public class ChatController(
             int id = TempData["SelectedChannelId"] as int? ?? 0;
             Console.WriteLine($"current ChannelId: {id}");
 
+            string? tutorId = HttpContext.Request.Cookies["Id"];
+            if (string.IsNullOrWhiteSpace(tutorId))
+            {
+                tutorId = HttpContext.User.Claims.FirstOrDefault(key => key.Type == "Id")!.Value;
+                Console.WriteLine("Tutor id from Auth Cookie: " + tutorId);
+            }
+
             Channel initialChannel = (id != 0) ? _channelRepo.GetById(id)! : dbChannels.First();
             ChatViewModel viewModel = new()
             {
                 Channels = dbChannels,
-                CurrentChannel = initialChannel
+                CurrentChannel = initialChannel,
+                UserId = tutorId
             };
 
             Console.WriteLine("channel id: " + viewModel.Channels.FirstOrDefault()!.Id);

@@ -12,6 +12,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Unohana.Data;
 global using Unohana.Dtos;
 global using Unohana.Enums;
+global using Unohana.Hubs;
 global using Unohana.Models;
 global using Unohana.Repositories;
 global using Unohana.Utilities;
