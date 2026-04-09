@@ -63,7 +63,8 @@ public class ChatController(
             {
                 Channels = dbChannels,
                 CurrentChannel = initialChannel,
-                UserId = tutorId
+                UserId = tutorId,
+                Username = HttpContext.User.Claims.FirstOrDefault(key => key.Type == "UserName")!.Value
             };
 
             Console.WriteLine("channel id: " + viewModel.Channels.FirstOrDefault()!.Id);

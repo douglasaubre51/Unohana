@@ -25,7 +25,7 @@
 
             @if (@Model.CurrentChannel.Messages is not null)
             {
-                <div class="message-collection">
+                <div id='message-contain' class="message-collection">
                     @foreach (var m in @Model.CurrentChannel.Messages)
                     {
                         <div class="message-card">
@@ -39,3 +39,9 @@
         </div>
     }
 </div>
+
+<input type='hidden' id='channel-id' value='@Model!.CurrentChannel!.Id' />
+<input type='hidden' id='user-id' value='@Model!.UserId' />
+
+<script src="~/lib/signalr/signalr.js"></script>
+<script src="~/js/student_chat.js"></script>

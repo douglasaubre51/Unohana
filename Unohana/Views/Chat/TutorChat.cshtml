@@ -63,6 +63,7 @@
                 <div class="room-footer">
                     <input type="hidden" id="channel-id" asp-for="@Model.CurrentChannel.Id" />
                     <input type="hidden" id="user-id" asp-for="@Model.UserId" />
+                    <input type="hidden" id="user-name" asp-for="@Model.Username" />
 
                     <textarea id="user-message" asp-for="@Model.Message" class="text-box" rows="5"></textarea>
                     <button id="send-btn" class="primary-btn">Send</button>

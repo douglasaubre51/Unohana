@@ -51,7 +51,8 @@ public class StudentController(
             ChatViewModel viewModel = new()
             {
                 Channels = dbChannels,
-                CurrentChannel = initialChannel
+                CurrentChannel = initialChannel,
+                UserId = HttpContext.User.Claims.FirstOrDefault(key => key.Type == "Id")!.Value
             };
 
             return View(viewModel);

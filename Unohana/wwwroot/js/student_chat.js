@@ -31,29 +31,6 @@ conn.on("UpdateMessage", (dto) => {
 })
 
 
-// Send event!
-var sendBtn = document.getElementById('send-btn')
-sendBtn.addEventListener("click", (event) => {
-    let msg = document.getElementById("user-message").value
-    let userId = document.getElementById("user-id").value
-    let channelId = document.getElementById("channel-id").value
-    let username = document.getElementById("user-name").value
-
-    conn.invoke("BroadcastMessage", {
-        text: msg,
-        userId: userId,
-        channelId: channelId,
-        username: username
-    }).catch((err) => {
-        return console.error(err.toString())
-    })
-
-    document.getElementById('user-message').value = ''
-
-    event.preventDefault()
-})
-
-
 // Start signalR connection!
 conn.start()
     .then(() => {
